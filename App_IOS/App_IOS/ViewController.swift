@@ -1,47 +1,46 @@
 //
 // ViewController.swift.
-// App_IOS.
+// App_ios.
 // 
 
 import UIKit
 import Alamofire
 class ViewController: UIViewController {
 
+    
     override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        webServiceLogin(isFbLogin: true, email: "admin", password: "12345678")
 
         
     }
-    func webServiceLogin(isFbLogin:Bool,email:String,password:String)
-       {
-           var parameters:[String:String]?
-
-            parameters = ["username":email as String,"password":password ]
-
-           
-           AF.request("http://52.77.233.77:8081/api/Auth/login", method: .post, parameters: parameters,encoding: URLEncoding.default, headers: nil).responseJSON {
-               response in
-              
-               switch response.result {
-               case .success:
-                   if let dictSuccess:NSDictionary =  response.value as! NSDictionary?
-                   {
-                    print(dictSuccess)
-                        
-                      }
-
-                   break
-               case .failure(let error):
-                   
-                   print(response)
-                   print(error)
-               }
-
-           }
-       }
-
-
+    
+    @IBAction func btn_login(_ sender: UIButton) {
+        
+    }
+    @IBAction func btn_Profire(_ sender: Any) {
+        let isLogin = UserDefaults.standard.value(forKey: SaveKey.isLogin.toString()) as? Bool ?? false
+        if isLogin {
+            self.goProfile()
+        } else {
+            performSegue(withIdentifier: "go_login", sender: nil)
+        }
+    }
+    
+    @IBAction func btn_Home(_ sender: Any) {
+        goHome()
+    }
+    @IBAction func btn_Oder(_ sender: Any) {
+    }
+    func goProfile() {
+        let scr = self.storyboard?.instantiateViewController(withIdentifier: "Profire") as! ProfireController
+        //self.present(scr, animated: true, completion: nil)
+        
+        self.navigationController?.pushViewController(scr, animated: true)
+    }
+    func goHome() {
+        let scr = self.storyboard?.instantiateViewController(withIdentifier: "Home") as! ViewController
+        //self.present(scr, animated: true, completion: nil)
+        
+        self.navigationController?.pushViewController(scr, animated: true)
+    }
 }
 

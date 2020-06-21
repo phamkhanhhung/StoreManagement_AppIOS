@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ProductByOrderVC" customModule="Shopping" customModuleProvider="target">
+            <connections>
+                <outlet property="tbvProductBO" destination="dBr-6t-cAL" id="loU-PN-4Jd"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5an-ec-jvT">
+                    <rect key="frame" x="10" y="54" width="35" height="25"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="25" id="37I-Oo-Igo"/>
+                        <constraint firstAttribute="width" constant="35" id="a0x-MV-2kw"/>
+                    </constraints>
+                    <state key="normal" image="back"/>
+                    <connections>
+                        <action selector="actionBack:" destination="-1" eventType="touchUpInside" id="beG-gl-hVQ"/>
+                    </connections>
+                </button>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="100" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dBr-6t-cAL">
+                    <rect key="frame" x="0.0" y="79" width="414" height="783"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                </tableView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="dBr-6t-cAL" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="35" id="3TX-DB-6ya"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="dBr-6t-cAL" secondAttribute="bottom" id="Bjh-aC-VGJ"/>
+                <constraint firstItem="dBr-6t-cAL" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="CPK-zO-vYa"/>
+                <constraint firstItem="5an-ec-jvT" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="MGy-hG-ikI"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="dBr-6t-cAL" secondAttribute="trailing" id="o61-Wq-uq2"/>
+                <constraint firstItem="5an-ec-jvT" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="10" id="zzo-5O-whQ"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="65" y="111"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="back" width="30" height="22"/>
+    </resources>
+</document>
