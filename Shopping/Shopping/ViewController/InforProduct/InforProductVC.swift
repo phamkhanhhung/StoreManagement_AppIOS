@@ -111,7 +111,9 @@ class InforProductVC: UIViewController,UICollectionViewDelegate,UICollectionView
         op.SoLuong = Int(lbSoLuong.text ?? "0")!
         op.idProduct = Data.shared.product[vitri].id
         Data.shared.oderProduct.append(op)
-        
+        let app = UIApplication.shared.delegate as! AppDelegate
+        app.tabVC?.selectedIndex = 1
+        self.dismiss(animated: true, completion: nil)
         
     }
     

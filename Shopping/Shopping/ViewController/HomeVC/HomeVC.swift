@@ -42,7 +42,12 @@ class HomeVC: UIViewController,UICollectionViewDataSource,UICollectionViewDelega
     }
     
     @IBAction func actionChooses(_ sender: Any) {
-        tbvChooses.isHidden = false
+        if tbvChooses.isHidden {
+            tbvChooses.isHidden = false
+        }else{
+            tbvChooses.isHidden = true
+        }
+        
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {

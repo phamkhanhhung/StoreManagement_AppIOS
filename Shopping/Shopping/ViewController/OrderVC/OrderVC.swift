@@ -29,38 +29,43 @@ class OrderVC: UIViewController , UICollectionViewDataSource ,UICollectionViewDe
     }
     
     @IBAction func actionOrder(_ sender: Any) {
-//        let idstr = UserDefaults.standard.value(forKey: SaveKey.idlogin.toString()) as? Int ?? 0
-//        var orderDetail:[String:Any]?
-        //orderDetail.unsafelyUnwrapped()
-//        var parameters:[String:Any]?
-//        parameters = ["staffId": 1, "customerId": idstr, "status": false, "code":0,"orderDetail":  ]
-//        let idstr = UserDefaults.standard.value(forKey: SaveKey.idlogin.toString()) as? Int ?? 0
-        let token = UserDefaults.standard.value(forKey: SaveKey.access_token.toString()) as? String ?? ""
-        
-        let headers: HTTPHeaders = ["Authorization": "Bearer \(token)"]
-        let urlrq:String = "http://52.77.233.77:8081/api/Order"
-        AF.request(urlrq, method: .post, parameters: nil,encoding: JSONEncoding.default, headers: headers).responseJSON {
-            response in
+        let idstr = UserDefaults.standard.value(forKey: SaveKey.idlogin.toString()) as? Int ?? 0
+        if idstr != 0 && Data.shared.oderProduct.count > 0 {
+            var orderDetail: [[String: Any]] = []
+            for obj in Data.shared.oderProduct {
+                let param: [String: Any] = ["quantity": obj.SoLuong, "disCount": 1, "productId": obj.product.id]
+                orderDetail.append(param)
+            }
+            let parameters: [String:Any] = ["staffId": 1, "customerId": idstr, "status": false, "code":0,"orderDetail": orderDetail]
+            let token = UserDefaults.standard.value(forKey: SaveKey.access_token.toString()) as? String ?? ""
             
-            switch response.result {
-            case .success:
-                if let value = response.value {
-//                    if let json = JSON(rawValue: value) {
-//                        
-//
-//
-//
-//                    }
+            let headers: HTTPHeaders = ["Authorization": "Bearer \(token)"]
+            let urlrq:String = "http://52.77.233.77:8081/api/Order"
+            AF.request(urlrq, method: .post, parameters: parameters,encoding: JSONEncoding.default, headers: headers).responseJSON {
+                response in
+                
+                switch response.result {
+                case .success:
+                    if let value = response.value {
+                        if let json = JSON(rawValue: value) {
+                            
+                            Data.shared.oderProduct.removeAll()
+                            self.clvProduct.reloadData()
+                            
+                        }
+                    }
+                    
+                    break
+                case .failure(let error):
+                    Data.shared.oderProduct.removeAll()
+                    self.clvProduct.reloadData()
+                    print(response)
+                    print(error)
                 }
                 
-                break
-            case .failure(let error):
-                
-                print(response)
-                print(error)
             }
-            
         }
+        
         
     }
     

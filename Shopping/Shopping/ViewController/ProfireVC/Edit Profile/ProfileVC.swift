@@ -163,7 +163,7 @@ extension ProfileVC {
     func initUI() {
         
         
-        self.setTF()
+        
         
         
     }
@@ -188,6 +188,7 @@ extension ProfileVC {
                         
                         
                     }
+                    
                 }
                 
                 break
