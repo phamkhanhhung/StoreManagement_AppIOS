@@ -9,6 +9,7 @@ target 'Shopping' do
   pod 'Alamofire'
   pod 'SwiftyJSON'
   pod 'Kingfisher'
+  pod 'KRProgressHUD'
   # Pods for Shopping
 
 end
