@@ -4,6 +4,9 @@ PODS:
   - Kingfisher (5.13.4):
     - Kingfisher/Core (= 5.13.4)
   - Kingfisher/Core (5.13.4)
+  - KRActivityIndicatorView (3.0.5)
+  - KRProgressHUD (3.4.5):
+    - KRActivityIndicatorView (= 3.0.5)
   - SkyFloatingLabelTextField (3.8.0)
   - SwiftyJSON (5.0.0)
 
@@ -11,6 +14,7 @@ DEPENDENCIES:
   - Alamofire
   - IQKeyboardManagerSwift
   - Kingfisher
+  - KRProgressHUD
   - SkyFloatingLabelTextField
   - SwiftyJSON
 
@@ -19,6 +23,8 @@ SPEC REPOS:
     - Alamofire
     - IQKeyboardManagerSwift
     - Kingfisher
+    - KRActivityIndicatorView
+    - KRProgressHUD
     - SkyFloatingLabelTextField
     - SwiftyJSON
 
@@ -26,9 +32,11 @@ SPEC CHECKSUMS:
   Alamofire: 9d5c5f602928e512395b30950c5984eca840093c
   IQKeyboardManagerSwift: 0fb93310284665245591f50f7a5e38de615960b7
   Kingfisher: d2279a7abece3c7f25a80cd2b7f363ca5cf3f44c
+  KRActivityIndicatorView: 912bc0413d98340f384b12a4e1e6aa8f42fb377d
+  KRProgressHUD: df4cdc3a1baf708d4276a089ee34d133fa9a6f3e
   SkyFloatingLabelTextField: 5a338412114808e961fe2d14ea2c5452c8b6e4aa
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
 
-PODFILE CHECKSUM: 867a31f9594e82c9797514930ca91d4ae93c30a4
+PODFILE CHECKSUM: f9b4bdf7bb8be21ea29dc7f029e0a6b0a560b96b
 
 COCOAPODS: 1.9.1

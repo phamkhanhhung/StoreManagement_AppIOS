@@ -7,6 +7,7 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 import SkyFloatingLabelTextField
+import KRProgressHUD
 
 class HomeVC: UIViewController,UICollectionViewDataSource,UICollectionViewDelegate, UICollectionViewDelegateFlowLayout,UITableViewDataSource,UITableViewDelegate {
     
@@ -27,7 +28,7 @@ class HomeVC: UIViewController,UICollectionViewDataSource,UICollectionViewDelega
         clvProduct.dataSource = self
         clvProduct.delegate = self
         
-        
+        lbSearch.setMagnifyingGlassColorTo(color: #colorLiteral(red: 0.9764705882, green: 0.2235294118, blue: 0.3882352941, alpha: 1))
         
         tbvChooses.register(UINib.init(nibName: "HomeTableCell", bundle: nil), forCellReuseIdentifier: "HomeTableCell")
         tbvChooses.dataSource = self
@@ -176,37 +177,41 @@ extension HomeVC{
     }
     
     func initData(){
+        KRProgressHUD.show()
         Data.shared.branch = []
         AF.request("http://52.77.233.77:8081/api/Branch?page=1&pagesize=100", method: .get, parameters: nil,encoding: JSONEncoding.default, headers: nil).responseJSON {
             response in
-            
+            KRProgressHUD.dismiss()
             switch response.result {
             case .success:
                 if let value = response.value {
                     if let json = JSON(rawValue: value) {
-                        
-                        
-                        let branch = Branch(json: json["items"])
-                        
                         for js in json["items"].arrayValue {
                             let pro = Branch.init(json: js)
                             Data.shared.branch.append(pro)
-                            
                             self.tbvChooses.reloadData()
                         }
-                        
                     }
                 }
-                
                 break
             case .failure(let error):
                 
                 print(response)
                 print(error)
             }
-            
         }
-        
-        
+    }
+}
+
+extension UISearchBar
+{
+
+    func setMagnifyingGlassColorTo(color: UIColor)
+    {
+        // Search Icon
+        let textFieldInsideSearchBar = self.value(forKey: "searchField") as? UITextField
+        let glassIconView = textFieldInsideSearchBar?.leftView as? UIImageView
+        glassIconView?.image = glassIconView?.image?.withRenderingMode(.alwaysTemplate)
+        glassIconView?.tintColor = color
     }
 }
