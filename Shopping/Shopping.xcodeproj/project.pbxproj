@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18213CB424A1F4B700C83510 /* ColorExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18213CB324A1F4B700C83510 /* ColorExtention.swift */; };
 		2A1390E87644BFB1A9B6B4C3 /* Pods_Shopping.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50DCB5DCDDE39D79634B802B /* Pods_Shopping.framework */; };
 		85166781247F360D003FFB87 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8516677F247F360D003FFB87 /* ProfileVC.swift */; };
 		85166782247F360D003FFB87 /* ProfileVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 85166780247F360D003FFB87 /* ProfileVC.xib */; };
@@ -63,6 +64,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		18213CB324A1F4B700C83510 /* ColorExtention.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorExtention.swift; sourceTree = "<group>"; };
 		50DCB5DCDDE39D79634B802B /* Pods_Shopping.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Shopping.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8516677F247F360D003FFB87 /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		85166780247F360D003FFB87 /* ProfileVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileVC.xib; sourceTree = "<group>"; };
@@ -202,6 +204,7 @@
 			isa = PBXGroup;
 			children = (
 				85176131247A12E40024AE1C /* AppDelegate.swift */,
+				18213CB324A1F4B700C83510 /* ColorExtention.swift */,
 				85653C55247C03E500F27006 /* Constant.swift */,
 				85642DBE247C9CE800F6A341 /* Helper.swift */,
 			);
@@ -530,6 +533,7 @@
 				852C3ED22494671F00BB73AA /* InforProductCell.swift in Sources */,
 				8517614E247A154A0024AE1C /* LoginVC.swift in Sources */,
 				8563AAAC2496272E006EF01C /* Branch.swift in Sources */,
+				18213CB424A1F4B700C83510 /* ColorExtention.swift in Sources */,
 				8550D568248E803C00321C72 /* Pictures.swift in Sources */,
 				85653C5A247C053300F27006 /* Data.swift in Sources */,
 				853C86B6249214010065153A /* OrderCell.swift in Sources */,

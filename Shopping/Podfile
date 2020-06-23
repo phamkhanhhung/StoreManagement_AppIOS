@@ -10,6 +10,7 @@ target 'Shopping' do
   pod 'SwiftyJSON'
   pod 'Kingfisher'
   pod 'KRProgressHUD'
+  pod 'SwiftyAttributes'
   # Pods for Shopping
 
 end
