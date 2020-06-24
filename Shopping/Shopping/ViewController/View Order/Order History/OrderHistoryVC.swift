@@ -39,6 +39,14 @@ class OrderHistoryVC: UIViewController ,UITableViewDataSource,UITableViewDelegat
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return Data.shared.orderHistory.count
     }
+    func setupNav() {
+            let right = UIBarButtonItem(image: #imageLiteral(resourceName: "new_order").withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(self.showBranch))
+            self.navigationItem.rightBarButtonItem = right
+        }
+        
+        @objc func showBranch() {
+            
+        }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "OHCell", for: indexPath as IndexPath) as! OHCell
