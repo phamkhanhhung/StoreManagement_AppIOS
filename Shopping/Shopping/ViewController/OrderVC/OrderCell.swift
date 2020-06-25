@@ -22,15 +22,19 @@ class OrderCell: UICollectionViewCell {
             lbSoLuong.text = "\(item.SoLuong)"
             lbNameP.text = "\(item.product.categoryName)" + " " + "\(item.product.name)"
             lbPrice.text = "\(item.product.price)"
-            
+            if item.SoLuong <= 1 {
+                btTruSL.isUserInteractionEnabled = false
+            }else{
+                btTruSL.isUserInteractionEnabled = true
+
+            }
         }
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        if item.SoLuong <= 1 {
-            btTruSL.isUserInteractionEnabled = false
-        }
+        
+        
     }
     
     @IBAction func actionTruSL(_ sender: Any) {

@@ -11,6 +11,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var tabVC: TabBarVC?
+    var vBag: UIView = UIView()
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         IQKeyboardManager.shared.enable = true
@@ -26,6 +27,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         tabVC = TabBarVC(nibName: "TabBarVC", bundle: nil)
         window?.rootViewController = tabVC
         window?.makeKeyAndVisible()
+        
+        if let wd = window {
+            vBag = UIView(frame: CGRect(x: 100, y: 100, width: 50, height: 50))
+            vBag.backgroundColor = .red
+            wd.addSubview(vBag)
+            vBag.isHidden = true
+        }
     }
 }
 

@@ -6,6 +6,7 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
+import KRProgressHUD
 class ProductByOrderVC: UIViewController ,UITableViewDelegate,UITableViewDataSource{
     
     
@@ -27,6 +28,7 @@ class ProductByOrderVC: UIViewController ,UITableViewDelegate,UITableViewDataSou
     }
 
     @IBAction func actionBack(_ sender: Any) {
+        Data.shared.listProductInOrder.removeAll()
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -65,10 +67,10 @@ extension ProductByOrderVC{
     }
     
     func initData(){
-        
+        KRProgressHUD.show()
         AF.request("http://52.77.233.77:8081/api/OrderDetail?OrderId=" + String(vitri) + "&page=1&pagesize=100", method: .get, parameters: nil,encoding: JSONEncoding.default, headers: nil).responseJSON {
             response in
-            
+            KRProgressHUD.dismiss()
             switch response.result {
             case .success:
                 if let value = response.value {

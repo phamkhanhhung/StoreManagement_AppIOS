@@ -32,11 +32,11 @@ class OrderHistory: NSObject {
         staffName = json["staffName"].stringValue
         customerName = json["customerName"].stringValue
         
-        let datestr = json["dateOfBirth"].stringValue
+        let datestr = json["orderDate"].stringValue
         let dateFor: DateFormatter = DateFormatter()
-        dateFor.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        dateFor.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSS"
         dateFor.locale = Locale(identifier: "vi")
-        orderDate = dateFor.date(from: datestr) ?? Date()
+        self.orderDate = dateFor.date(from: datestr) ?? Date()
         print(orderDate.toString())
     }
 }
