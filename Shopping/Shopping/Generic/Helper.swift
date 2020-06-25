@@ -56,7 +56,7 @@ class Helper: UIAlertController  {
     class func alertOrderSucc(msg:String, target: UIViewController) {
         let alert:UIAlertController = UIAlertController(title: "Shopping", message: msg, preferredStyle: UIAlertController.Style.alert)
         let btnOK:UIAlertAction = UIAlertAction(title: "OK", style: .destructive) { (btn) in
-            target.dismiss(animated: true, completion: nil)
+            target.navigationController?.popToRootViewController(animated: true)
         }
         
         alert.addAction(btnOK)

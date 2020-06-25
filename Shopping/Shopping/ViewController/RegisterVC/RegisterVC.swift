@@ -54,7 +54,7 @@ class RegisterVC: UIViewController {
                     
                     
                     break
-                case .failure(_):
+                case .failure(let _):
                     print(response.result)
                     self.gotoLogin()
                     

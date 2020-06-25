@@ -111,15 +111,24 @@ class InforProductVC: UIViewController,UICollectionViewDelegate,UICollectionView
     
     
     @IBAction func actionAddToCart(_ sender: Any) {
+        //        let del = UIApplication.shared.delegate as! AppDelegate
+        //        del.vBag.isHidden = false
         let op:OrderProduct = OrderProduct()
         op.product = Data.shared.product[vitri]
         op.SoLuong = Int(lbSoLuong.text ?? "0")!
         op.idProduct = Data.shared.product[vitri].id
         Data.shared.oderProduct.append(op)
         let vc = OrderVC(nibName: "OrderVC", bundle: nil)
+        vc.p = true
         let nav = UINavigationController(rootViewController: vc)
         nav.modalPresentationStyle = .fullScreen
-        self.present(nav, animated: true, completion: nil)
+        
+        self.navigationController?.pushViewController(vc, animated: true)
+        
+        //        let app = UIApplication.shared.delegate as! AppDelegate
+        //        app.tabVC?.selectedIndex = 1
+        //        self.dismiss(animated: true, completion: nil)
+        
     }
     
 }

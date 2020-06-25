@@ -10,7 +10,7 @@ import SkyFloatingLabelTextField
 import KRProgressHUD
 import SwiftyAttributes
 
-class HomeVC: UIViewController {
+class HomeVC: UIViewController, UISearchBarDelegate {
     
     @IBOutlet weak var clvProduct: UICollectionView!
     @IBOutlet weak var tbvChooses: UITableView!
@@ -18,8 +18,6 @@ class HomeVC: UIViewController {
     @IBOutlet weak var vBranch: UIView!
     @IBOutlet weak var lbBranch: UILabel!
     @IBOutlet weak var btChange: UIButton!
-    
-    var searchData:[Product] = []
     
     var selectedBranch: Branch = Branch() {
         didSet {
@@ -38,7 +36,9 @@ class HomeVC: UIViewController {
         self.lbSearch.delegate = self
         self.hideKeyboardWhenTappedAround()
     }
-    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder() // hides the keyboard.
+    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.lbSearch.endEditing(false)
@@ -53,10 +53,6 @@ class HomeVC: UIViewController {
             vBranch.isHidden = true
             btChange.setAttributedTitle("Change".withAttributes([.textColor(Color("F93963", alpha: 1)), .underlineStyle(.single), .underlineColor(Color("F93963", alpha: 1))]), for: .normal)
         }
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true)
     }
 }
 
@@ -79,7 +75,6 @@ extension HomeVC{
     @objc func refresh() {
         reloadDataWith(brandId: selectedBranch.id, false)
     }
-    
     func setupNav() {
 //        let right = UIBarButtonItem(image: #imageLiteral(resourceName: "home_branch").withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(self.showBranch))
 //        self.navigationItem.rightBarButtonItem = right
@@ -137,12 +132,11 @@ extension HomeVC{
                     if let json = JSON(rawValue: value) {
                         let total = json["total"].intValue
                         Data.shared.totalProduct = total
-                        Data.shared.product.removeAll()
-                        self.searchData.removeAll()
+                        
                         for js in json["items"].arrayValue {
                             let pro = Product.init(json: js)
                             Data.shared.product.append(pro)
-                            self.searchData.append(pro)
+                            
                         }
                         self.clvProduct.reloadData()
                         
@@ -168,7 +162,7 @@ extension HomeVC: UITableViewDataSource {
     }
     //TableView
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return searchData.count
+        return Data.shared.branch.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -183,8 +177,7 @@ extension HomeVC: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         vBranch.isHidden = true
         btChange.setAttributedTitle("Change".withAttributes([.textColor(Color("F93963", alpha: 1)), .underlineStyle(.single), .underlineColor(Color("F93963", alpha: 1))]), for: .normal)
-        Data.shared.product.removeAll()
-        self.searchData.removeAll()
+        Data.shared.product = []
         self.clvProduct.reloadData()
         self.tbvChooses.reloadData()
         selectedBranch = Data.shared.branch[indexPath.row]
@@ -197,18 +190,18 @@ extension HomeVC: UITableViewDelegate {
 
 extension HomeVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return searchData.count
+        return Data.shared.product.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HomeCell", for: indexPath as IndexPath) as! HomeCell
-        let str:String = searchData[indexPath.row ].categoryName + " " + searchData[indexPath.row].name
+        let str:String = Data.shared.product[indexPath.row ].categoryName + " " + Data.shared.product[indexPath.row].name
         cell.lbNameProduct.text = String(str)
-        cell.lbSupplierName.text = String(searchData[indexPath.row ].supplierName)
-        cell.lbPrice.attributedText = "đ".withAttributes([.underlineStyle(.single), .underlineColor(Color("F93963", alpha: 1)), .font(Font.systemFont(ofSize: 13, weight: .bold))]) + " \(searchData[indexPath.row ].price)".attributedString
+        cell.lbSupplierName.text = String( Data.shared.product[indexPath.row ].supplierName)
+        cell.lbPrice.attributedText = "đ".withAttributes([.underlineStyle(.single), .underlineColor(Color("F93963", alpha: 1)), .font(Font.systemFont(ofSize: 13, weight: .bold))]) + " \(Data.shared.product[indexPath.row ].price)".attributedString
         cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-        if !(searchData[indexPath.row].pictures.count <= 0){
-            cell.imgProduct.kf.setImage(with: URL(string: searchData[indexPath.row].pictures[0].imageUrl), placeholder: UIImage(named: "noimage"), options: [], progressBlock: { (a, b) in
+        if !(Data.shared.product[indexPath.row].pictures.count <= 0){
+            cell.imgProduct.kf.setImage(with: URL(string: Data.shared.product[indexPath.row].pictures[0].imageUrl), placeholder: UIImage(named: "noimage"), options: [], progressBlock: { (a, b) in
                 
             }) { (result) in
                 switch result {
@@ -241,41 +234,14 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let vc = InforProductVC(nibName: "InforProductVC", bundle: nil)
-        let str1:String = searchData[indexPath.row ].categoryName + " " + searchData[indexPath.row].name
+        let str1:String = Data.shared.product[indexPath.row ].categoryName + " " + Data.shared.product[indexPath.row].name
         vc.name = str1
-        vc.price = String(searchData[indexPath.row].price)
-        vc.dicr = searchData[indexPath.row].description0
+        vc.price = String( Data.shared.product[indexPath.row].price)
+        vc.dicr = Data.shared.product[indexPath.row].description0
         vc.vitri = indexPath.row
         collectionView.deselectItem(at: indexPath, animated: true)
         vc.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(vc, animated: true)
-    }
-}
-
-extension HomeVC: UISearchBarDelegate {
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.resignFirstResponder()
-    }
-    
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchWith(string: "")
-    }
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        searchWith(string: searchText)
-    }
-    
-    func searchWith(string: String) {
-        self.searchData.removeAll()
-        for item in Data.shared.product {
-            if item.name.lowercased().contains(string.lowercased()) ||
-                item.categoryName.lowercased().contains(string.lowercased()) ||
-                item.description0.lowercased().contains(string.lowercased()) ||
-                string.count == 0 {
-                self.searchData.append(item)
-            }
-        }
-        self.clvProduct.reloadData()
     }
 }
 
@@ -287,7 +253,6 @@ extension UISearchBar {
         glassIconView?.tintColor = color
     }
 }
-
 extension UIViewController {
     func hideKeyboardWhenTappedAround() {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))

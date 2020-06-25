@@ -97,7 +97,6 @@ class ProfileHomeVC: UIViewController ,UITableViewDataSource,UITableViewDelegate
                 UserDefaults.standard.removeObject(forKey: SaveKey.isLogin.toString())
                 UserDefaults.standard.removeObject(forKey: SaveKey.idlogin.toString())
                 Data.shared.orderHistory.removeAll()
-                Data.shared.oderProduct.removeAll()
                 checkLogin()
                 tableView.reloadData()
             }
