@@ -8,13 +8,14 @@ import Alamofire
 import SwiftyJSON
 
 class OrderVC: UIViewController , UICollectionViewDataSource ,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout{
-    
+    var p:Bool = false
     var total:Int = 0
     //    var arayProduct:[OrderProduct] = []
     @IBOutlet weak var lbTotal: UILabel!
     @IBOutlet weak var clvProduct: UICollectionView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "New Order"
         clvProduct.register(UINib.init(nibName: "OrderCell", bundle: nil), forCellWithReuseIdentifier: "OrderCell")
         clvProduct.dataSource = self
         clvProduct.delegate = self
@@ -24,9 +25,28 @@ class OrderVC: UIViewController , UICollectionViewDataSource ,UICollectionViewDe
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        setupNav()
         confixData()
         clvProduct.reloadData()
     }
+    
+    func setupNav() {
+            let right = UIBarButtonItem(image: #imageLiteral(resourceName: "back").withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(self.showBranch))
+            self.navigationItem.leftBarButtonItem = right
+        }
+        
+        @objc func showBranch() {
+            if p {
+                p = false
+                self.navigationController?.popViewController(animated: true)
+                
+            }else{
+                let app = UIApplication.shared.delegate as! AppDelegate
+                app.tabVC?.selectedIndex = 1
+                self.dismiss(animated: true, completion: nil)
+            }
+            
+        }
     
     @IBAction func actionOrder(_ sender: Any) {
         let idstr = UserDefaults.standard.value(forKey: SaveKey.idlogin.toString()) as? Int ?? 0
@@ -65,6 +85,14 @@ class OrderVC: UIViewController , UICollectionViewDataSource ,UICollectionViewDe
                 
             }
         }
+        if Data.shared.oderProduct.count == 0 {
+            Helper.alert(msg: "Please add product to this order", target: self)
+        }else{
+            if idstr == 0{
+                Helper.alertLogin(msg: "Please log in!", target: self)
+            }
+        }
+        
         
         
     }

@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -259,17 +260,6 @@
                         <constraint firstItem="jMY-hk-SM2" firstAttribute="leading" secondItem="oyN-Ze-hmk" secondAttribute="leading" id="uRQ-nr-pac"/>
                     </constraints>
                 </scrollView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aoo-HL-WN4">
-                    <rect key="frame" x="10" y="54" width="35" height="25"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="35" id="8rl-HM-3yr"/>
-                        <constraint firstAttribute="height" constant="25" id="SQL-bO-EoM"/>
-                    </constraints>
-                    <state key="normal" image="back"/>
-                    <connections>
-                        <action selector="actionBack:" destination="-1" eventType="touchUpInside" id="LMg-J7-2yQ"/>
-                    </connections>
-                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
@@ -278,16 +268,13 @@
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="oyN-Ze-hmk" secondAttribute="bottom" id="Icq-LE-1D1"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="oyN-Ze-hmk" secondAttribute="trailing" id="Rkd-yv-Jci"/>
                 <constraint firstItem="oyN-Ze-hmk" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="X0V-U7-V4y"/>
-                <constraint firstItem="aoo-HL-WN4" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="10" id="Yl8-r5-kR1"/>
                 <constraint firstItem="yeW-g4-mpd" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="2:5" id="ikm-uv-Y9b"/>
-                <constraint firstItem="aoo-HL-WN4" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="s1y-jy-Utg"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="63.768115942028992" y="98.4375"/>
         </view>
     </objects>
     <resources>
-        <image name="back" width="30" height="22"/>
         <image name="noimage" width="800" height="800"/>
         <image name="plus" width="32" height="32"/>
         <image name="subtract" width="32" height="2"/>

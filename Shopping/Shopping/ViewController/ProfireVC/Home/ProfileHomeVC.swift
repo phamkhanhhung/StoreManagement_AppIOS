@@ -7,8 +7,9 @@ import UIKit
 import SkyFloatingLabelTextField
 import Alamofire
 import SwiftyJSON
+import Kingfisher
 class ProfileHomeVC: UIViewController ,UITableViewDataSource,UITableViewDelegate, UICollectionViewDelegateFlowLayout{
-    var item:[String]  = ["Account Setting","View Order History"]
+    var item:[String]  = ["Account Setting","Log Out"]
     let avata:[UIImage] = [#imageLiteral(resourceName: "settingP"),#imageLiteral(resourceName: "vieworder")]
     
     @IBOutlet weak var btlogin: UIButton!
@@ -18,8 +19,8 @@ class ProfileHomeVC: UIViewController ,UITableViewDataSource,UITableViewDelegate
     @IBOutlet weak var imgAvata: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
-
-    
+        
+        
         tbvChoose.register(UINib.init(nibName: "PHCell", bundle: nil), forCellReuseIdentifier: "PHCell")
         tbvChoose.dataSource = self
         tbvChoose.delegate = self
@@ -31,6 +32,7 @@ class ProfileHomeVC: UIViewController ,UITableViewDataSource,UITableViewDelegate
         checkLogin()
         initData()
         initUI()
+        
     }
     
     @IBAction func actionLogin(_ sender: Any) {
@@ -40,22 +42,16 @@ class ProfileHomeVC: UIViewController ,UITableViewDataSource,UITableViewDelegate
         self.present(nav, animated: true, completion: nil)
         
     }
-    @IBAction func actionLogout(_ sender: Any) {
-                UserDefaults.standard.removeObject(forKey: SaveKey.access_token.toString())
-                UserDefaults.standard.removeObject(forKey: SaveKey.isLogin.toString())
-                UserDefaults.standard.removeObject(forKey: SaveKey.idlogin.toString())
-        checkLogin()
-        
-    }
+    
     
     func checkLogin() {
         let isLogin:Bool = UserDefaults.standard.value(forKey: SaveKey.isLogin.toString()) as? Bool ?? false
         if isLogin {
-            imgAvata.isHidden = false
+//            imgAvata.isHidden = false
             lbName.text = String(Data.shared.userProfile.name)
             btlogin.isHidden = true
         }else{
-            imgAvata.isHidden = true
+//            imgAvata.isHidden = true
             lbName.text = ""
             btlogin.isHidden = false
         }
@@ -63,7 +59,12 @@ class ProfileHomeVC: UIViewController ,UITableViewDataSource,UITableViewDelegate
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        let isLogin:Bool = UserDefaults.standard.value(forKey: SaveKey.isLogin.toString()) as? Bool ?? false
+        if isLogin {
+            return 2
+        }else{
+            return 1
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -77,18 +78,29 @@ class ProfileHomeVC: UIViewController ,UITableViewDataSource,UITableViewDelegate
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        if indexPath.row == 0{
-            let vc = ProfileVC(nibName: "ProfileVC", bundle: nil)
-            let nav = UINavigationController(rootViewController: vc)
-            nav.modalPresentationStyle = .fullScreen
-            self.present(nav, animated: true, completion: nil)
+        let isLogin:Bool = UserDefaults.standard.value(forKey: SaveKey.isLogin.toString()) as? Bool ?? false
+        if isLogin {
+            if indexPath.row == 0{
+                // edit profile
+                let vc = ProfileVC(nibName: "ProfileVC", bundle: nil)
+                let nav = UINavigationController(rootViewController: vc)
+                nav.modalPresentationStyle = .fullScreen
+                self.present(nav, animated: true, completion: nil)
+                
+            }
+            if indexPath.row == 1 {
+                //log out
+                UserDefaults.standard.removeObject(forKey: SaveKey.access_token.toString())
+                UserDefaults.standard.removeObject(forKey: SaveKey.isLogin.toString())
+                UserDefaults.standard.removeObject(forKey: SaveKey.idlogin.toString())
+                Data.shared.orderHistory.removeAll()
+                checkLogin()
+                tableView.reloadData()
+            }
+        }else{
+            Helper.alertLogin(msg: "Please log in!", target: self)
         }
-        if indexPath.row == 1 {
-            let vc = OrderHistoryVC(nibName: "OrderHistoryVC", bundle: nil)
-            let nav = UINavigationController(rootViewController: vc)
-            nav.modalPresentationStyle = .fullScreen
-            self.present(nav, animated: true, completion: nil)
-        }
+        
     }
     func setTF() {
         lbName.isHidden = false
@@ -96,15 +108,26 @@ class ProfileHomeVC: UIViewController ,UITableViewDataSource,UITableViewDelegate
         //lbName.text = "aefewfwef"
     }
     
-
+    
 }
 extension ProfileHomeVC {
     func initUI() {
         
         
-       // self.setTF()
-        
-        
+        // self.setTF()
+        self.tbvChoose.reloadData()
+        if !(Data.shared.userProfile.image.count <= 0){
+            self.imgAvata.kf.setImage(with: URL(string: Data.shared.userProfile.image), placeholder: UIImage(named: "noavata"), options: [], progressBlock: { (a, b) in
+                
+            }) { (result) in
+                switch result {
+                case .success(let value):
+                    print("Task done for: \(value.source.url?.absoluteString ?? "")")
+                case .failure(let error):
+                    print("Job failed: \(error.localizedDescription)")
+                }
+            }
+        }
     }
     
     func initData() {
@@ -116,35 +139,35 @@ extension ProfileHomeVC {
             
             let headers: HTTPHeaders = ["Authorization": "Bearer \(token)"]
             AF.request(urlrq, method: .get, parameters: nil,encoding: JSONEncoding.default, headers: headers).responseJSON {
-                    response in
-                    
-                    switch response.result {
-                    case .success:
-                        if let value = response.value {
-                            if let json = JSON(rawValue: value) {
-                                Data.shared.userProfile = UserInformation()
-                                let user = UserInformation(json: json)
-                                Data.shared.userProfile = user
-                                //self.lbName.text = String( user.name)
-                                self.setTF()
-                                
-                                
-                            }
+                response in
+                
+                switch response.result {
+                case .success:
+                    if let value = response.value {
+                        if let json = JSON(rawValue: value) {
+                            Data.shared.userProfile = UserInformation()
+                            let user = UserInformation(json: json)
+                            Data.shared.userProfile = user
+                            //self.lbName.text = String( user.name)
+                            self.setTF()
+                            
+                            
                         }
-                        
-                        break
-                    case .failure(let error):
-                        
-                        print(response)
-                        print(error)
                     }
                     
+                    break
+                case .failure(let error):
+                    
+                    print(response)
+                    print(error)
                 }
                 
-                
             }
+            
+            
         }
-        
+    }
+    
     
     
 }
