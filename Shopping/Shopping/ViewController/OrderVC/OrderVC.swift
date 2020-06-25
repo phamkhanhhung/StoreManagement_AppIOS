@@ -6,7 +6,7 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
-
+import KRProgressHUD
 class OrderVC: UIViewController , UICollectionViewDataSource ,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout{
     var p:Bool = false
     var total:Int = 0
@@ -36,42 +36,35 @@ class OrderVC: UIViewController , UICollectionViewDataSource ,UICollectionViewDe
         }
         
         @objc func showBranch() {
-            if p {
-                p = false
-                self.navigationController?.popViewController(animated: true)
-                
-            }else{
-                let app = UIApplication.shared.delegate as! AppDelegate
-                app.tabVC?.selectedIndex = 1
-                self.dismiss(animated: true, completion: nil)
-            }
-            
+            self.navigationController?.popViewController(animated: true)
         }
     
     @IBAction func actionOrder(_ sender: Any) {
         let idstr = UserDefaults.standard.value(forKey: SaveKey.idlogin.toString()) as? Int ?? 0
         if idstr != 0 && Data.shared.oderProduct.count > 0 {
+            KRProgressHUD.show()
             var orderDetail: [[String: Any]] = []
             for obj in Data.shared.oderProduct {
                 let param: [String: Any] = ["quantity": obj.SoLuong, "disCount": 1, "productId": obj.product.id]
                 orderDetail.append(param)
             }
-            let parameters: [String:Any] = ["staffId": 1, "customerId": idstr, "status": false, "code":0,"orderDetail": orderDetail]
+            let parameters: [String:Any] = ["staffId": 1, "customerId": idstr, "status": false, "code":0, "branchId": Data.shared.branchid,"orderDetail": orderDetail]
             let token = UserDefaults.standard.value(forKey: SaveKey.access_token.toString()) as? String ?? ""
             
             let headers: HTTPHeaders = ["Authorization": "Bearer \(token)"]
             let urlrq:String = "http://52.77.233.77:8081/api/Order"
             AF.request(urlrq, method: .post, parameters: parameters,encoding: JSONEncoding.default, headers: headers).responseJSON {
                 response in
-                
+                KRProgressHUD.dismiss()
                 switch response.result {
                 case .success:
                     if let value = response.value {
-                        if let json = JSON(rawValue: value) {
+                        if JSON(rawValue: value) != nil {
                             
                             Data.shared.oderProduct.removeAll()
                             self.clvProduct.reloadData()
-                            
+                            Helper.alertOrderSucc(msg: "Order successful!", target: self)
+
                         }
                     }
                     
@@ -79,6 +72,7 @@ class OrderVC: UIViewController , UICollectionViewDataSource ,UICollectionViewDe
                 case .failure(let error):
                     Data.shared.oderProduct.removeAll()
                     self.clvProduct.reloadData()
+                    Helper.alertOrderSucc(msg: "Order successful!", target: self)
                     print(response)
                     print(error)
                 }

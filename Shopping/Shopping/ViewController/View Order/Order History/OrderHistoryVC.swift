@@ -49,15 +49,16 @@ class OrderHistoryVC: UIViewController ,UITableViewDataSource,UITableViewDelegat
         
         @objc func showBranch() {
             let vc = OrderVC(nibName: "OrderVC", bundle: nil)
-            
+            vc.hidesBottomBarWhenPushed = true
                   let nav = UINavigationController(rootViewController: vc)
-                  nav.modalPresentationStyle = .fullScreen
-            self.present(nav, animated: true, completion: nil)
+                 nav.modalPresentationStyle = .fullScreen
+            self.navigationController?.pushViewController(vc, animated: true)
+            //self.present(nav, animated: true, completion: nil)
         }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "OHCell", for: indexPath as IndexPath) as! OHCell
-        cell.lbDate.text = Data.shared.orderHistory[indexPath.row].orderDate.toString()
+        cell.lbDate.text = String( Data.shared.orderHistory[indexPath.row].orderDate.toString())
         cell.lbNuber.text = String(indexPath.row + 1)
         let stt = Data.shared.orderHistory[indexPath.row].status
         if stt {
@@ -90,7 +91,11 @@ extension OrderHistoryVC{
     func loadData()  {
         let idstr = UserDefaults.standard.value(forKey: SaveKey.idlogin.toString()) as? Int ?? 0
         if idstr != 0 {
-            AF.request("http://52.77.233.77:8081/api/Order/GetAllOrder?customerId=" + String(idstr) + "&page=1&pagesize=100", method: .get, parameters: nil,encoding: JSONEncoding.default, headers: nil).responseJSON {
+            let token = UserDefaults.standard.value(forKey: SaveKey.access_token.toString()) as? String ?? ""
+            
+            let headers: HTTPHeaders = ["Authorization": "Bearer \(token)"]
+
+            AF.request("http://52.77.233.77:8081/api/Order/GetAllOrder?customerId=" + String(idstr) + "&page=1&pagesize=100", method: .get, parameters: nil,encoding: JSONEncoding.default, headers: headers).responseJSON {
                 response in
                 KRProgressHUD.dismiss()
                 switch response.result {

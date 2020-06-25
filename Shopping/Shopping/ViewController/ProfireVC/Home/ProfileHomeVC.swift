@@ -8,6 +8,7 @@ import SkyFloatingLabelTextField
 import Alamofire
 import SwiftyJSON
 import Kingfisher
+import KRProgressHUD
 class ProfileHomeVC: UIViewController ,UITableViewDataSource,UITableViewDelegate, UICollectionViewDelegateFlowLayout{
     var item:[String]  = ["Account Setting","Log Out"]
     let avata:[UIImage] = [#imageLiteral(resourceName: "settingP"),#imageLiteral(resourceName: "vieworder")]
@@ -25,7 +26,7 @@ class ProfileHomeVC: UIViewController ,UITableViewDataSource,UITableViewDelegate
         tbvChoose.dataSource = self
         tbvChoose.delegate = self
         tbvChoose.separatorStyle = .none
-        
+
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -83,9 +84,11 @@ class ProfileHomeVC: UIViewController ,UITableViewDataSource,UITableViewDelegate
             if indexPath.row == 0{
                 // edit profile
                 let vc = ProfileVC(nibName: "ProfileVC", bundle: nil)
-                let nav = UINavigationController(rootViewController: vc)
-                nav.modalPresentationStyle = .fullScreen
-                self.present(nav, animated: true, completion: nil)
+//                let nav = UINavigationController(rootViewController: vc)
+//                nav.modalPresentationStyle = .fullScreen
+//                self.present(nav, animated: true, completion: nil)
+                vc.hidesBottomBarWhenPushed = true
+                self.navigationController?.pushViewController(vc, animated: true)
                 
             }
             if indexPath.row == 1 {
@@ -133,6 +136,7 @@ extension ProfileHomeVC {
     func initData() {
         let isLogin:Bool = UserDefaults.standard.value(forKey: SaveKey.isLogin.toString()) as? Bool ?? false
         if isLogin {
+            KRProgressHUD.show()
             let idstr = UserDefaults.standard.value(forKey: SaveKey.idlogin.toString()) as? Int ?? 0
             let urlrq:String = "http://52.77.233.77:8081/api/User/"+String(idstr)
             let token = UserDefaults.standard.value(forKey: SaveKey.access_token.toString()) as? String ?? ""
@@ -140,7 +144,7 @@ extension ProfileHomeVC {
             let headers: HTTPHeaders = ["Authorization": "Bearer \(token)"]
             AF.request(urlrq, method: .get, parameters: nil,encoding: JSONEncoding.default, headers: headers).responseJSON {
                 response in
-                
+                KRProgressHUD.dismiss()
                 switch response.result {
                 case .success:
                     if let value = response.value {

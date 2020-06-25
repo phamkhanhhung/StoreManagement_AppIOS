@@ -14,6 +14,7 @@ class Data: NSObject {
     var totalProduct:Int = 0
     var oderProduct: [OrderProduct] = []
     var branch:[Branch] = []
+    var branchid:Int = 0
     var orderHistory:[OrderHistory] = []
     var listProductInOrder:[ListProductInOrder] = []
 }
