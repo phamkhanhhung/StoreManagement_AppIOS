@@ -47,15 +47,15 @@ class InforProductVC: UIViewController,UICollectionViewDelegate,UICollectionView
         return 1
     }
     func setupNav() {
-            let right = UIBarButtonItem(image: #imageLiteral(resourceName: "back").withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(self.showBranch))
-            self.navigationItem.leftBarButtonItem = right
-        }
-        
-        @objc func showBranch() {
-//            let app = UIApplication.shared.delegate as! AppDelegate
-//            app.tabVC?.selectedIndex = 0
-            navigationController?.popViewController(animated: true)
-        }
+        let right = UIBarButtonItem(image: #imageLiteral(resourceName: "back").withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(self.showBranch))
+        self.navigationItem.leftBarButtonItem = right
+    }
+    
+    @objc func showBranch() {
+        //            let app = UIApplication.shared.delegate as! AppDelegate
+        //            app.tabVC?.selectedIndex = 0
+        navigationController?.popViewController(animated: true)
+    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         let i:Int = Data.shared.product[vitri].pictures.count
@@ -69,7 +69,7 @@ class InforProductVC: UIViewController,UICollectionViewDelegate,UICollectionView
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "InforProductCell", for: indexPath as IndexPath) as! InforProductCell
-//        cell.imgProduct.kf.setImage(with: URL(string: "https://d1zjrlgnm4bf8m.cloudfront.net/59ec3af2-edaf-4b5d-9472-44040a402e37?Expires=1592016966&Signature=Xe7R0vVPDiKf3UsdyoZHksjo9bO2CnqSQuqLU1~ISGiFWs2VNQoDqu8wCpYu9qgpF8RnGOA6CT3wMeNZ6UFTkBgdlIpFS~grlUhdjezMxAXH-HtlLzmeXDzsezmOXvcQXLOJ5xaI~pg0CGgdoyFd3yNLETJZNY9RKX-bGYPdLKJ2oUptlTRuboMQFc4vDc2WaPdfD5BCINWbt~zxMRee36Au3aBTHHGzsjvhCQ6bH1W7nUoX2-zLdiuLJRuBXtsbNaEGAyacfugA~kefYiuZ8WYYSSRJrgQ0sjw35yM9rbAnIPfbyXKRlXF~sBWoq4OUJHNzlu1WVsna7tuF04m9Cw__&Key-Pair-Id=APKAIIO7MT3ZQL3H45GA"))
+        //        cell.imgProduct.kf.setImage(with: URL(string: "https://d1zjrlgnm4bf8m.cloudfront.net/59ec3af2-edaf-4b5d-9472-44040a402e37?Expires=1592016966&Signature=Xe7R0vVPDiKf3UsdyoZHksjo9bO2CnqSQuqLU1~ISGiFWs2VNQoDqu8wCpYu9qgpF8RnGOA6CT3wMeNZ6UFTkBgdlIpFS~grlUhdjezMxAXH-HtlLzmeXDzsezmOXvcQXLOJ5xaI~pg0CGgdoyFd3yNLETJZNY9RKX-bGYPdLKJ2oUptlTRuboMQFc4vDc2WaPdfD5BCINWbt~zxMRee36Au3aBTHHGzsjvhCQ6bH1W7nUoX2-zLdiuLJRuBXtsbNaEGAyacfugA~kefYiuZ8WYYSSRJrgQ0sjw35yM9rbAnIPfbyXKRlXF~sBWoq4OUJHNzlu1WVsna7tuF04m9Cw__&Key-Pair-Id=APKAIIO7MT3ZQL3H45GA"))
         if !(Data.shared.product[vitri].pictures.count <= 0){
             cell.imgProduct.kf.setImage(with: URL(string: Data.shared.product[vitri].pictures[indexPath.row].imageUrl), placeholder: UIImage(named: "noimage"), options: [], progressBlock: { (a, b) in
                 
@@ -111,8 +111,8 @@ class InforProductVC: UIViewController,UICollectionViewDelegate,UICollectionView
     
     
     @IBAction func actionAddToCart(_ sender: Any) {
-//        let del = UIApplication.shared.delegate as! AppDelegate
-//        del.vBag.isHidden = false
+        //        let del = UIApplication.shared.delegate as! AppDelegate
+        //        del.vBag.isHidden = false
         let op:OrderProduct = OrderProduct()
         op.product = Data.shared.product[vitri]
         op.SoLuong = Int(lbSoLuong.text ?? "0")!
@@ -120,14 +120,14 @@ class InforProductVC: UIViewController,UICollectionViewDelegate,UICollectionView
         Data.shared.oderProduct.append(op)
         let vc = OrderVC(nibName: "OrderVC", bundle: nil)
         vc.p = true
-              let nav = UINavigationController(rootViewController: vc)
-              nav.modalPresentationStyle = .fullScreen
-       
+        let nav = UINavigationController(rootViewController: vc)
+        nav.modalPresentationStyle = .fullScreen
+        
         self.navigationController?.pushViewController(vc, animated: true)
         
-//        let app = UIApplication.shared.delegate as! AppDelegate
-//        app.tabVC?.selectedIndex = 1
-//        self.dismiss(animated: true, completion: nil)
+        //        let app = UIApplication.shared.delegate as! AppDelegate
+        //        app.tabVC?.selectedIndex = 1
+        //        self.dismiss(animated: true, completion: nil)
         
     }
     

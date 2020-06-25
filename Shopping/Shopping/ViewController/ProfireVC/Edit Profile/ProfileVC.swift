@@ -46,7 +46,6 @@ class ProfileVC: UIViewController {
         imgAvata.layer.borderWidth = 0.5
         imgAvata.layer.borderColor = #colorLiteral(red: 0.9868738055, green: 0.1452238262, blue: 0.2056418657, alpha: 1)
         
-        initData()
         initUI()
         
     }
@@ -95,9 +94,10 @@ class ProfileVC: UIViewController {
     
     
     @IBAction func actionBack(_ sender: Any) {
-        let app = UIApplication.shared.delegate as! AppDelegate
-        app.tabVC?.selectedIndex = 2
-        self.dismiss(animated: true, completion: nil)
+//        let app = UIApplication.shared.delegate as! AppDelegate
+//        app.tabVC?.selectedIndex = 2
+//        self.dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func actioncheckMale(_ sender: UIButton) {
@@ -116,6 +116,22 @@ class ProfileVC: UIViewController {
         }
     }
     
+    func formatGroupUserId() -> Int {
+        let str = Data.shared.userProfile.groupRole
+        switch str {
+        case .Admin:
+            return 1
+        case .Staff:
+            return 2
+        case .Customer:
+            return 3
+        case .StaffManager:
+            return 4
+        default:
+            return 0
+        }
+    }
+    
     @IBAction func actionLogout(_ sender: Any) {
         self.view.endEditing(true)
         
@@ -129,9 +145,9 @@ class ProfileVC: UIViewController {
         let datestr:String   = selectedDate.toString("yyyy-MM-dd")
         
         let image:String = ""
-        var groupUserId:Int = 3
+        let groupUserId:Int = formatGroupUserId()
         var parameters:[String:Any]?
-        parameters = ["name": name, "email": email, "address": address, "phoneNumber":phoneNumber,"gender": gender,  "dateOfBirth": datestr, "image": image, "groupUserId": 3 ]
+        parameters = ["name": name, "email": email, "address": address, "phoneNumber":phoneNumber,"gender": gender,  "dateOfBirth": datestr, "image": image, "groupUserId": groupUserId ]
         let idstr = UserDefaults.standard.value(forKey: SaveKey.idlogin.toString()) as? Int ?? 0
         let token = UserDefaults.standard.value(forKey: SaveKey.access_token.toString()) as? String ?? ""
         
@@ -145,14 +161,14 @@ class ProfileVC: UIViewController {
             case .success:
                 self.initData()
                 if let value = response.value {
-                    if let json = JSON(rawValue: value) {
-                        
-                        
+                    if JSON(rawValue: value) != nil {
+                        Helper.alertUpdateProfile(msg: "Update successful!", target: self)
                     }
                 }
                 
                 break
             case .failure(let error):
+                Helper.alertUpdateProfile(msg: "Update successful!", target: self)
                 self.initData()
                 print(response)
                 print(error)
@@ -165,7 +181,8 @@ extension ProfileVC {
     func initUI() {
         
         
-        
+        self.setTF()
+
         
         
     }

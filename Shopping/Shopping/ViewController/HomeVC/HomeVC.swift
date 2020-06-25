@@ -10,7 +10,7 @@ import SkyFloatingLabelTextField
 import KRProgressHUD
 import SwiftyAttributes
 
-class HomeVC: UIViewController {
+class HomeVC: UIViewController, UISearchBarDelegate {
     
     @IBOutlet weak var clvProduct: UICollectionView!
     @IBOutlet weak var tbvChooses: UITableView!
@@ -21,7 +21,8 @@ class HomeVC: UIViewController {
     
     var selectedBranch: Branch = Branch() {
         didSet {
-            lbBranch.attributedText = "You are viewing the product at branch ".withAttribute(.textColor(Color(white: 0, alpha: 0.5))) + "\(selectedBranch.description0)".withAttribute(.textColor(Color("F93963", alpha: 1)))
+            lbBranch.attributedText = "You are viewing the product at ".withAttribute(.textColor(Color(white: 0, alpha: 0.5))) + "\(selectedBranch.description0)".withAttribute(.textColor(Color("F93963", alpha: 1)))
+            Data.shared.branchid = selectedBranch.id
             self.reloadDataWith(brandId: selectedBranch.id)
         }
     }
@@ -31,10 +32,17 @@ class HomeVC: UIViewController {
         super.viewDidLoad()
         initUI()
         initData()
+        clvProduct.keyboardDismissMode = .interactive
+        self.lbSearch.delegate = self
+        self.hideKeyboardWhenTappedAround()
     }
-    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder() // hides the keyboard.
+    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.lbSearch.endEditing(false)
+
     }
     
     @IBAction func actionChangeBranch(_ sender: Any) {
@@ -243,5 +251,16 @@ extension UISearchBar {
         let glassIconView = textFieldInsideSearchBar?.leftView as? UIImageView
         glassIconView?.image = glassIconView?.image?.withRenderingMode(.alwaysTemplate)
         glassIconView?.tintColor = color
+    }
+}
+extension UIViewController {
+    func hideKeyboardWhenTappedAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
 }
