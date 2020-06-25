@@ -16,8 +16,8 @@ class UserInformation: NSObject {
     var phoneNumber:String = ""
     var gender:Bool = true
     var image:String = ""
-    var groupRole:GroupRole = .UnKnowk
-    
+    var groupRole:GroupRole = .UnKnowk 
+    var idGroupRole:Int = 0
     var dateOfBirth: Date = Date()
     
     override init() {

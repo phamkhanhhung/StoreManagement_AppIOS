@@ -25,6 +25,8 @@ enum GroupRole: String {
     case UnKnowk
     case Admin
     case Customer
+    case StaffManager
+    case Staff
 }
 
 class Constant: NSObject {
