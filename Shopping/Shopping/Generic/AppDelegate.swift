@@ -9,6 +9,7 @@ import IQKeyboardManagerSwift
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    //Branch hung
     var window: UIWindow?
     var tabVC: TabBarVC?
     var vBag: UIView = UIView()
