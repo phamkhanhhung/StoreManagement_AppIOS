@@ -49,9 +49,8 @@ class OrderHistoryVC: UIViewController ,UITableViewDataSource,UITableViewDelegat
         
         @objc func showBranch() {
             let vc = OrderVC(nibName: "OrderVC", bundle: nil)
-            
-                  let nav = UINavigationController(rootViewController: vc)
-                  nav.modalPresentationStyle = .fullScreen
+            let nav = UINavigationController(rootViewController: vc)
+            nav.modalPresentationStyle = .fullScreen
             self.present(nav, animated: true, completion: nil)
         }
     
