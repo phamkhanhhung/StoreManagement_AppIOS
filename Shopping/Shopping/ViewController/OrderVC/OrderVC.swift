@@ -11,6 +11,7 @@ import KRProgressHUD
 class OrderVC: UIViewController{
     @IBOutlet weak var tbMain: UITableView!
     
+    @IBOutlet weak var lbTotalPrice: UILabel!
     var total:Int = 0
     
     override func viewDidLoad() {
@@ -21,6 +22,7 @@ class OrderVC: UIViewController{
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        confixData()
         setupNav()
     }
     
@@ -33,7 +35,7 @@ class OrderVC: UIViewController{
         self.dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func actionOrder(_ sender: Any) {
+    @IBAction func actionOrderProduct(_ sender: Any) {
         let idstr = UserDefaults.standard.value(forKey: SaveKey.idlogin.toString()) as? Int ?? 0
         if idstr != 0 && Data.shared.oderProduct.count > 0 {
             KRProgressHUD.show()
@@ -56,6 +58,7 @@ class OrderVC: UIViewController{
                         if JSON(rawValue: value) != nil {
                             
                             Data.shared.oderProduct.removeAll()
+                            self.tbMain.reloadData()
                             Helper.alertOrderSucc(msg: "Order successful!", target: self)
 
                         }
@@ -63,8 +66,6 @@ class OrderVC: UIViewController{
                     
                     break
                 case .failure(let error):
-                    Data.shared.oderProduct.removeAll()
-                    Helper.alertOrderSucc(msg: "Order successful!", target: self)
                     print(response)
                     print(error)
                 }
@@ -78,10 +79,8 @@ class OrderVC: UIViewController{
                 Helper.alertLogin(msg: "Please log in!", target: self)
             }
         }
-        
-        
-        
     }
+    
     
     func confixData() -> Void {
         var arayProduct:[OrderProduct] = []
@@ -116,11 +115,33 @@ extension OrderVC: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        lbTotalPrice.text = String(self.toltalPrice())
         return Data.shared.oderProduct.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "OrderCell") as! OrderCell
+        cell.item = Data.shared.oderProduct[indexPath.row]
+        cell.handle = {item in
+            self.tbMain.reloadData()
+        }
+        cell.handleDelete = {item in
+            Data.shared.oderProduct.remove(at: indexPath.row)
+            self.tbMain.reloadData()
+        }
+        if !(Data.shared.oderProduct[indexPath.row].product.pictures.count <= 0){
+            cell.imgProduct.kf.setImage(with: URL(string: Data.shared.oderProduct[indexPath.row].product.pictures[0].imageUrl), placeholder: UIImage(named: "noimage"), options: [], progressBlock: { (a, b) in
+                
+            }) { (result) in
+                switch result {
+                case .success(let value):
+                    print("Task done for: \(value.source.url?.absoluteString ?? "")")
+                case .failure(let error):
+                    print("Job failed: \(error.localizedDescription)")
+                }
+            }
+        }
+        
         return cell
     }
     

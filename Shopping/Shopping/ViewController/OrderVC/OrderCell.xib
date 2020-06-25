@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -55,6 +55,9 @@
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="njN-XT-rx3">
                                 <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                <connections>
+                                    <action selector="actionDelete:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="kHu-VN-cuu"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -90,6 +93,9 @@
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s2U-7X-asL">
                                         <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                        <connections>
+                                            <action selector="actionTruSL:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="no5-gW-BWZ"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.92549019607843142" green="0.93725490196078431" blue="0.94509803921568625" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -115,6 +121,9 @@
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YB4-LW-ycw">
                                         <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                        <connections>
+                                            <action selector="actionCongSL:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="paX-Up-T3N"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.92549019610000005" green="0.93725490199999995" blue="0.94509803920000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -191,6 +200,15 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="btCongSL" destination="YB4-LW-ycw" id="Qwr-QN-dbm"/>
+                <outlet property="btDelete" destination="njN-XT-rx3" id="4gw-kG-LiF"/>
+                <outlet property="btTruSL" destination="s2U-7X-asL" id="Pog-jz-zuO"/>
+                <outlet property="imgProduct" destination="EHj-4P-EZq" id="BKy-wx-B8A"/>
+                <outlet property="lbNameP" destination="d01-Hu-UNu" id="Y54-7S-hMG"/>
+                <outlet property="lbPrice" destination="hQe-ms-y9E" id="6Kb-kS-C9c"/>
+                <outlet property="lbSoLuong" destination="ODU-Ax-bvD" id="rhG-mS-qJC"/>
+            </connections>
             <point key="canvasLocation" x="136.95652173913044" y="182.14285714285714"/>
         </tableViewCell>
     </objects>
