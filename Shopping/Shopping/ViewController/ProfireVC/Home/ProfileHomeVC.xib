@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -41,7 +42,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </imageView>
                                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="50" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="drb-iV-mCx">
-                                    <rect key="frame" x="0.0" y="184" width="414" height="150"/>
+                                    <rect key="frame" x="0.0" y="180" width="414" height="150"/>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="150" id="qNf-uC-N4G"/>
@@ -54,18 +55,18 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hwi-5W-5Le">
-                                    <rect key="frame" x="167" y="30" width="80" height="80"/>
+                                    <rect key="frame" x="132" y="130" width="150" height="30"/>
                                     <color key="backgroundColor" name="color_app_main"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" secondItem="Hwi-5W-5Le" secondAttribute="height" multiplier="1:1" id="BKH-Dc-XC4"/>
-                                        <constraint firstAttribute="width" constant="80" id="cXH-Sz-lGE"/>
+                                        <constraint firstAttribute="height" constant="30" id="RnS-Bc-KE6"/>
+                                        <constraint firstAttribute="width" constant="150" id="cXH-Sz-lGE"/>
                                     </constraints>
-                                    <state key="normal" title="Login">
+                                    <state key="normal" title="Login / Sign up">
                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </state>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                            <real key="value" value="40"/>
+                                            <real key="value" value="15"/>
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                     <connections>
@@ -80,12 +81,12 @@
                                 <constraint firstAttribute="width" constant="414" id="FAu-h3-bdW"/>
                                 <constraint firstAttribute="height" constant="1000" id="Fk2-P0-eXl"/>
                                 <constraint firstItem="M4Z-77-boW" firstAttribute="centerX" secondItem="DfT-zm-rtG" secondAttribute="centerX" id="Jdx-Ch-Ik7"/>
-                                <constraint firstItem="Hwi-5W-5Le" firstAttribute="top" secondItem="DfT-zm-rtG" secondAttribute="top" constant="30" id="MwE-d3-cHZ"/>
+                                <constraint firstItem="Hwi-5W-5Le" firstAttribute="top" secondItem="gTf-S0-f7g" secondAttribute="bottom" constant="20" id="MwE-d3-cHZ"/>
                                 <constraint firstItem="Hwi-5W-5Le" firstAttribute="centerX" secondItem="DfT-zm-rtG" secondAttribute="centerX" id="NuR-Kx-IDy"/>
                                 <constraint firstAttribute="trailing" secondItem="drb-iV-mCx" secondAttribute="trailing" id="ix8-qi-EHx"/>
                                 <constraint firstItem="gTf-S0-f7g" firstAttribute="top" secondItem="DfT-zm-rtG" secondAttribute="top" constant="30" id="k7A-tw-5B9"/>
                                 <constraint firstItem="drb-iV-mCx" firstAttribute="leading" secondItem="DfT-zm-rtG" secondAttribute="leading" id="mqd-Rg-YrI"/>
-                                <constraint firstItem="drb-iV-mCx" firstAttribute="top" secondItem="M4Z-77-boW" secondAttribute="bottom" constant="30" id="vw6-WX-INm"/>
+                                <constraint firstItem="drb-iV-mCx" firstAttribute="top" secondItem="DfT-zm-rtG" secondAttribute="top" constant="180" id="vw6-WX-INm"/>
                             </constraints>
                         </view>
                     </subviews>
@@ -96,34 +97,11 @@
                         <constraint firstAttribute="bottom" secondItem="DfT-zm-rtG" secondAttribute="bottom" id="u0h-Ey-Cib"/>
                     </constraints>
                 </scrollView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="25Q-30-evM">
-                    <rect key="frame" x="40" y="802" width="334" height="50"/>
-                    <color key="backgroundColor" name="color_app_main"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="50" id="0Ou-Gk-yjS"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                    <state key="normal" title="Logout">
-                        <color key="titleColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    </state>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                            <real key="value" value="25"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
-                    <connections>
-                        <action selector="actionLogout:" destination="-1" eventType="touchUpInside" id="nm9-8W-k2b"/>
-                    </connections>
-                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="25Q-30-evM" secondAttribute="trailing" constant="40" id="42d-Mu-yZ7"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="EwM-me-gmj" secondAttribute="bottom" constant="70" id="9ZN-SC-ei8"/>
                 <constraint firstItem="DfT-zm-rtG" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="DDI-sM-KX3"/>
-                <constraint firstItem="25Q-30-evM" firstAttribute="top" secondItem="EwM-me-gmj" secondAttribute="bottom" constant="10" id="N71-1z-Eat"/>
-                <constraint firstItem="25Q-30-evM" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="40" id="Osf-LF-3IT"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="25Q-30-evM" secondAttribute="bottom" constant="10" id="Vqt-bC-oMP"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="EwM-me-gmj" secondAttribute="trailing" id="YLA-BA-aqJ"/>
                 <constraint firstItem="EwM-me-gmj" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="ZcN-nM-o9K"/>
                 <constraint firstItem="EwM-me-gmj" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="pUI-QS-bBR"/>

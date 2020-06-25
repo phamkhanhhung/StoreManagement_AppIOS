@@ -64,6 +64,9 @@ extension HomeVC{
         self.setupNav()
     }
     
+    @objc func refresh() {
+        reloadDataWith(brandId: selectedBranch.id, false)
+    }
     func setupNav() {
 //        let right = UIBarButtonItem(image: #imageLiteral(resourceName: "home_branch").withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(self.showBranch))
 //        self.navigationItem.rightBarButtonItem = right
@@ -71,10 +74,6 @@ extension HomeVC{
     
     @objc func showBranch() {
         
-    }
-    
-    @objc func refresh() {
-        reloadDataWith(brandId: selectedBranch.id, false)
     }
     
     func initData(){
@@ -142,7 +141,9 @@ extension HomeVC{
                 print(response)
                 print(error)
             }
-            self.refreshControl.endRefreshing()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                self.refreshControl.endRefreshing()
+            }
         }
     }
 }
@@ -230,9 +231,9 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
         vc.price = String( Data.shared.product[indexPath.row].price)
         vc.dicr = Data.shared.product[indexPath.row].description0
         vc.vitri = indexPath.row
-        let nav = UINavigationController(rootViewController: vc)
         collectionView.deselectItem(at: indexPath, animated: true)
-        self.present(nav, animated: true, completion: nil)
+        vc.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 

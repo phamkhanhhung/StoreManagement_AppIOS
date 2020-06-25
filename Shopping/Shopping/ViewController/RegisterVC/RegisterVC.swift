@@ -7,6 +7,7 @@ import UIKit
 import SkyFloatingLabelTextField
 import Alamofire
 import SwiftyJSON
+import KRProgressHUD
 class RegisterVC: UIViewController {
     
     
@@ -36,14 +37,14 @@ class RegisterVC: UIViewController {
         
         //self.navigationController?.popViewController(animated: true)
         if isValid() {
-            
+            KRProgressHUD.show()
             let user:String = tfUsername.text!
             let pass:String = tfPass.text!
             var parameters:[String:String]?
             parameters = ["username": user as String,"password":pass ]
             AF.request("http://52.77.233.77:8081/api/Auth/register", method: .post, parameters: parameters,encoding: JSONEncoding.default, headers: nil).responseJSON {
                 response in
-                
+                KRProgressHUD.dismiss()
                 switch response.result {
                     
                     

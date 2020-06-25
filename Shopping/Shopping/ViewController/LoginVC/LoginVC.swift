@@ -7,6 +7,7 @@ import UIKit
 import SkyFloatingLabelTextField
 import Alamofire
 import SwiftyJSON
+import KRProgressHUD
 class LoginVC: UIViewController {
     @IBOutlet weak var tfUsername: SkyFloatingLabelTextField!
     @IBOutlet weak var tfPass: SkyFloatingLabelTextField!
@@ -24,20 +25,20 @@ class LoginVC: UIViewController {
     }
     
     @IBAction func actionBack(_ sender: Any) {
-        let app = UIApplication.shared.delegate as! AppDelegate
-        app.tabVC?.selectedIndex = 2
+        
         self.dismiss(animated: true, completion: nil)
 
         
     }
     @IBAction func actionLogin(_ sender: Any) {
+        KRProgressHUD.show()
         let user:String = tfUsername.text!
         let pass:String = tfPass.text!
         var parameters:[String:String]?
         parameters = ["username": user as String,"password":pass ]
         AF.request("http://52.77.233.77:8081/api/Auth/login", method: .post, parameters: parameters,encoding: JSONEncoding.default, headers: nil).responseJSON {
                 response in
-        
+            KRProgressHUD.dismiss()
                 switch response.result {
                     case .success:
                         if let value = response.value {

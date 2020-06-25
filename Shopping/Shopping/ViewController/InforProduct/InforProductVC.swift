@@ -29,6 +29,8 @@ class InforProductVC: UIViewController,UICollectionViewDelegate,UICollectionView
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Product"
+        setupNav()
         lbDescription.text = dicr
         lbNameP.text = name
         lbPrive.text = price
@@ -44,6 +46,16 @@ class InforProductVC: UIViewController,UICollectionViewDelegate,UICollectionView
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
+    func setupNav() {
+            let right = UIBarButtonItem(image: #imageLiteral(resourceName: "back").withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(self.showBranch))
+            self.navigationItem.leftBarButtonItem = right
+        }
+        
+        @objc func showBranch() {
+//            let app = UIApplication.shared.delegate as! AppDelegate
+//            app.tabVC?.selectedIndex = 0
+            navigationController?.popViewController(animated: true)
+        }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         let i:Int = Data.shared.product[vitri].pictures.count
@@ -98,22 +110,24 @@ class InforProductVC: UIViewController,UICollectionViewDelegate,UICollectionView
     }
     
     
-    @IBAction func actionBack(_ sender: Any) {
-        let app = UIApplication.shared.delegate as! AppDelegate
-        app.tabVC?.selectedIndex = 0
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    
     @IBAction func actionAddToCart(_ sender: Any) {
+//        let del = UIApplication.shared.delegate as! AppDelegate
+//        del.vBag.isHidden = false
         let op:OrderProduct = OrderProduct()
         op.product = Data.shared.product[vitri]
         op.SoLuong = Int(lbSoLuong.text ?? "0")!
         op.idProduct = Data.shared.product[vitri].id
         Data.shared.oderProduct.append(op)
-        let app = UIApplication.shared.delegate as! AppDelegate
-        app.tabVC?.selectedIndex = 1
-        self.dismiss(animated: true, completion: nil)
+        let vc = OrderVC(nibName: "OrderVC", bundle: nil)
+        vc.p = true
+              let nav = UINavigationController(rootViewController: vc)
+              nav.modalPresentationStyle = .fullScreen
+       
+        self.navigationController?.pushViewController(vc, animated: true)
+        
+//        let app = UIApplication.shared.delegate as! AppDelegate
+//        app.tabVC?.selectedIndex = 1
+//        self.dismiss(animated: true, completion: nil)
         
     }
     
