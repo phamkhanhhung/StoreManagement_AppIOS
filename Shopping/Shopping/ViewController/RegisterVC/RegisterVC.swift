@@ -49,14 +49,31 @@ class RegisterVC: UIViewController {
                     
                     
                 case .success:
-                    self.navigationController?.popViewController(animated: true)
-                    self.gotoLogin()
+                    if let value = response.value {
+                        if let json = JSON(rawValue: value) {
+                            let acc = json["message"].boolValue
+                            if acc {
+                                Helper.alertSignUp(msg: "Sign up success, Please login!", target: self)
+                            }else{
+                                Helper.alert(msg: "Your user name is duplicate. Please sign up again!", target: self)
+                            }
+                        
+                            
+                            
+                            
+                            
+                            print(acc)
+                        }
+                    }
+                    Helper.alertSignUp(msg: "Sign up success, Please login!", target: self)
+                    
+//                    self.gotoLogin()
                     
                     
                     break
                 case .failure(_):
                     print(response.result)
-                    self.gotoLogin()
+//                    self.gotoLogin()
                     
                     
                     

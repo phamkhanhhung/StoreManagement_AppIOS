@@ -74,9 +74,9 @@ class LoginVC: UIViewController {
     
     
     func goProfile()  {
-                
-                let app = UIApplication.shared.delegate as! AppDelegate
-                app.tabVC?.selectedIndex = 2
+//                
+//                let app = UIApplication.shared.delegate as! AppDelegate
+//                app.tabVC?.selectedIndex = 2
                 self.dismiss(animated: true, completion: nil)
 
     }
