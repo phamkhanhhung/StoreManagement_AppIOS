@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="OrderVC" customModule="Shopping" customModuleProvider="target">
             <connections>
+                <outlet property="lbTotalPrice" destination="oAz-Mm-vdw" id="xBA-VY-1Zw"/>
                 <outlet property="tbMain" destination="m0g-dc-sxG" id="w74-5y-Kkg"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -20,23 +22,80 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="m0g-dc-sxG">
-                    <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="742"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="iU8-MQ-0Dv"/>
                         <outlet property="delegate" destination="-1" id="4nG-Cm-Vmd"/>
                     </connections>
                 </tableView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dJc-6M-fZI">
+                    <rect key="frame" x="41.5" y="752" width="331" height="30"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Price" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oAI-CS-xar">
+                            <rect key="frame" x="10" y="4.5" width="80.5" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100 đ" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oAz-Mm-vdw">
+                            <rect key="frame" x="280.5" y="5.5" width="40.5" height="19.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <color key="textColor" name="color_app_main"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" name="color1"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="oAz-Mm-vdw" secondAttribute="trailing" constant="10" id="5bs-Af-0XH"/>
+                        <constraint firstItem="oAI-CS-xar" firstAttribute="leading" secondItem="dJc-6M-fZI" secondAttribute="leading" constant="10" id="7WS-A8-XuD"/>
+                        <constraint firstItem="oAz-Mm-vdw" firstAttribute="centerY" secondItem="dJc-6M-fZI" secondAttribute="centerY" id="KyM-1p-NR5"/>
+                        <constraint firstItem="oAI-CS-xar" firstAttribute="centerY" secondItem="dJc-6M-fZI" secondAttribute="centerY" id="Q9b-al-ZqG"/>
+                        <constraint firstAttribute="height" constant="30" id="ZZG-dT-ugU"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dPI-92-c8Y">
+                    <rect key="frame" x="41.5" y="802" width="331" height="40"/>
+                    <color key="backgroundColor" name="color_app_main"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="TS2-mG-Zgq"/>
+                    </constraints>
+                    <state key="normal" title="Order Products">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="20"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="actionOrderProduct:" destination="-1" eventType="touchUpInside" id="Jwy-jS-7fB"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
+                <constraint firstItem="dPI-92-c8Y" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="Br4-Sa-MIF"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="m0g-dc-sxG" secondAttribute="trailing" id="Fc6-63-62d"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="m0g-dc-sxG" secondAttribute="bottom" id="Kcg-pS-qMw"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="m0g-dc-sxG" secondAttribute="bottom" constant="120" id="Kcg-pS-qMw"/>
                 <constraint firstItem="m0g-dc-sxG" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="M8Z-hK-GU7"/>
+                <constraint firstItem="dJc-6M-fZI" firstAttribute="top" secondItem="m0g-dc-sxG" secondAttribute="bottom" constant="10" id="fmT-2d-Erh"/>
+                <constraint firstItem="dPI-92-c8Y" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="4:5" id="gfo-Mm-IQV"/>
+                <constraint firstItem="dJc-6M-fZI" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="swH-Qu-t3T"/>
+                <constraint firstItem="dPI-92-c8Y" firstAttribute="top" secondItem="dJc-6M-fZI" secondAttribute="bottom" constant="20" id="vnX-pr-XUx"/>
+                <constraint firstItem="dJc-6M-fZI" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="4:5" id="y9n-N8-Qw5"/>
                 <constraint firstItem="m0g-dc-sxG" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="yKl-ts-SMW"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="137.68115942028987" y="107.8125"/>
         </view>
     </objects>
+    <resources>
+        <namedColor name="color1">
+            <color red="0.9100000262260437" green="0.9100000262260437" blue="0.91399997472763062" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="color_app_main">
+            <color red="0.97647058823529409" green="0.22352941176470589" blue="0.38823529411764707" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
 </document>
