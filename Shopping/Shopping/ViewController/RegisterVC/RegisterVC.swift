@@ -56,16 +56,11 @@ class RegisterVC: UIViewController {
                                 Helper.alertSignUp(msg: "Sign up success, Please login!", target: self)
                             }else{
                                 Helper.alert(msg: "Your user name is duplicate. Please sign up again!", target: self)
-                            }
-                        
-                            
-                            
-                            
-                            
+                            }                        
                             print(acc)
                         }
                     }
-                    Helper.alertSignUp(msg: "Sign up success, Please login!", target: self)
+                   
                     
 //                    self.gotoLogin()
                     
