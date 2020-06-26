@@ -1,7 +1,7 @@
 //
 // HomeVC.swift.
 // Shopping.
-// 
+//
 
 import UIKit
 import Alamofire
@@ -35,12 +35,14 @@ class HomeVC: UIViewController {
         initUI()
         initData()
         clvProduct.keyboardDismissMode = .interactive
+        
         self.lbSearch.delegate = self
         self.hideKeyboardWhenTappedAround()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        initUI()
         self.lbSearch.endEditing(false)
 
     }
@@ -62,6 +64,7 @@ class HomeVC: UIViewController {
 
 extension HomeVC{
     func initUI()  {
+        
         clvProduct.register(UINib.init(nibName: "HomeCell", bundle: nil), forCellWithReuseIdentifier: "HomeCell")
         clvProduct.dataSource = self
         clvProduct.delegate = self
@@ -168,10 +171,11 @@ extension HomeVC: UITableViewDataSource {
     }
     //TableView
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return searchData.count
+        return Data.shared.branch.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        tableView.keyboardDismissMode = .onDrag
         let tbCell = tableView.dequeueReusableCell(withIdentifier: "HomeTableCell", for: indexPath as IndexPath) as! HomeTableCell
         tbCell.configWith(branch: Data.shared.branch[indexPath.row], selected: selectedBranch)
         return tbCell
@@ -184,6 +188,7 @@ extension HomeVC: UITableViewDelegate {
         vBranch.isHidden = true
         btChange.setAttributedTitle("Change".withAttributes([.textColor(Color("F93963", alpha: 1)), .underlineStyle(.single), .underlineColor(Color("F93963", alpha: 1))]), for: .normal)
         Data.shared.product.removeAll()
+//        self.lbSearch.text = ""
         self.searchData.removeAll()
         self.clvProduct.reloadData()
         self.tbvChooses.reloadData()
