@@ -11,6 +11,7 @@ target 'Shopping' do
   pod 'Kingfisher'
   pod 'KRProgressHUD'
   pod 'SwiftyAttributes'
+  pod 'ReachabilitySwift'
   # Pods for Shopping
 
 end
