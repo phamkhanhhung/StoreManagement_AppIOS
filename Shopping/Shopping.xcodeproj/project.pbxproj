@@ -10,6 +10,13 @@
 		18213CB424A1F4B700C83510 /* ColorExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18213CB324A1F4B700C83510 /* ColorExtention.swift */; };
 		185C93D124A4B6E300971569 /* OrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185C93CF24A4B6E300971569 /* OrderCell.swift */; };
 		185C93D224A4B6E300971569 /* OrderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 185C93D024A4B6E300971569 /* OrderCell.xib */; };
+		1863FDD724A5D3FF0042CB23 /* NetworkServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1863FDD624A5D3FF0042CB23 /* NetworkServices.swift */; };
+		1863FDD924A5D4B70042CB23 /* APIRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1863FDD824A5D4B60042CB23 /* APIRouter.swift */; };
+		1863FDDB24A5D4E60042CB23 /* URLRequestExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1863FDDA24A5D4E60042CB23 /* URLRequestExtention.swift */; };
+		1863FDDD24A5D5C30042CB23 /* Save.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1863FDDC24A5D5C30042CB23 /* Save.swift */; };
+		1863FDE324A5D82C0042CB23 /* WebServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1863FDE224A5D82C0042CB23 /* WebServices.swift */; };
+		1863FDE624A5D87A0042CB23 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1863FDE424A5D8790042CB23 /* APIService.swift */; };
+		1863FDE724A5D87A0042CB23 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1863FDE524A5D87A0042CB23 /* APIManager.swift */; };
 		2A1390E87644BFB1A9B6B4C3 /* Pods_Shopping.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50DCB5DCDDE39D79634B802B /* Pods_Shopping.framework */; };
 		85166781247F360D003FFB87 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8516677F247F360D003FFB87 /* ProfileVC.swift */; };
 		85166782247F360D003FFB87 /* ProfileVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 85166780247F360D003FFB87 /* ProfileVC.xib */; };
@@ -67,6 +74,13 @@
 		18213CB324A1F4B700C83510 /* ColorExtention.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorExtention.swift; sourceTree = "<group>"; };
 		185C93CF24A4B6E300971569 /* OrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderCell.swift; sourceTree = "<group>"; };
 		185C93D024A4B6E300971569 /* OrderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OrderCell.xib; sourceTree = "<group>"; };
+		1863FDD624A5D3FF0042CB23 /* NetworkServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkServices.swift; sourceTree = "<group>"; };
+		1863FDD824A5D4B60042CB23 /* APIRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIRouter.swift; sourceTree = "<group>"; };
+		1863FDDA24A5D4E60042CB23 /* URLRequestExtention.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLRequestExtention.swift; sourceTree = "<group>"; };
+		1863FDDC24A5D5C30042CB23 /* Save.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Save.swift; sourceTree = "<group>"; };
+		1863FDE224A5D82C0042CB23 /* WebServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebServices.swift; sourceTree = "<group>"; };
+		1863FDE424A5D8790042CB23 /* APIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		1863FDE524A5D87A0042CB23 /* APIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		50DCB5DCDDE39D79634B802B /* Pods_Shopping.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Shopping.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8516677F247F360D003FFB87 /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		85166780247F360D003FFB87 /* ProfileVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileVC.xib; sourceTree = "<group>"; };
@@ -136,6 +150,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1863FDDE24A5D5C60042CB23 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				1863FDDC24A5D5C30042CB23 /* Save.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		1863FDDF24A5D5D50042CB23 /* Extentions */ = {
+			isa = PBXGroup;
+			children = (
+				85176151247A1DE10024AE1C /* UIViewExtention.swift */,
+				1863FDDA24A5D4E60042CB23 /* URLRequestExtention.swift */,
+			);
+			path = Extentions;
+			sourceTree = "<group>";
+		};
 		4D830C62D0D76B57B8267B96 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -215,6 +246,11 @@
 		85176147247A14050024AE1C /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				1863FDD624A5D3FF0042CB23 /* NetworkServices.swift */,
+				1863FDE224A5D82C0042CB23 /* WebServices.swift */,
+				1863FDD824A5D4B60042CB23 /* APIRouter.swift */,
+				1863FDE424A5D8790042CB23 /* APIService.swift */,
+				1863FDE524A5D87A0042CB23 /* APIManager.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -266,7 +302,8 @@
 		85176150247A1DAA0024AE1C /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				85176151247A1DE10024AE1C /* UIViewExtention.swift */,
+				1863FDDF24A5D5D50042CB23 /* Extentions */,
+				1863FDDE24A5D5C60042CB23 /* Helpers */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -525,11 +562,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				85176136247A12E40024AE1C /* ViewController.swift in Sources */,
+				1863FDE624A5D87A0042CB23 /* APIService.swift in Sources */,
 				185C93D124A4B6E300971569 /* OrderCell.swift in Sources */,
 				85166784247F53FD003FFB87 /* UserInformation.swift in Sources */,
 				85653C4B247BC19C00F27006 /* HomeVC.swift in Sources */,
 				85367D00249A0E64005859CF /* ListProductInOrder.swift in Sources */,
 				85176132247A12E40024AE1C /* AppDelegate.swift in Sources */,
+				1863FDE324A5D82C0042CB23 /* WebServices.swift in Sources */,
 				8550D561248E698700321C72 /* HomeCell.swift in Sources */,
 				852C3ED22494671F00BB73AA /* InforProductCell.swift in Sources */,
 				8517614E247A154A0024AE1C /* LoginVC.swift in Sources */,
@@ -537,6 +576,7 @@
 				18213CB424A1F4B700C83510 /* ColorExtention.swift in Sources */,
 				8550D568248E803C00321C72 /* Pictures.swift in Sources */,
 				85653C5A247C053300F27006 /* Data.swift in Sources */,
+				1863FDD924A5D4B70042CB23 /* APIRouter.swift in Sources */,
 				853F2F3A2495E1AA006B3413 /* OHCell.swift in Sources */,
 				8563AAAE2497D990006EF01C /* OrderHistory.swift in Sources */,
 				85653C54247BC27C00F27006 /* TabBarVC.swift in Sources */,
@@ -545,9 +585,12 @@
 				85176152247A1DE10024AE1C /* UIViewExtention.swift in Sources */,
 				8550D566248E7EDA00321C72 /* Product.swift in Sources */,
 				85653C50247BC1DA00F27006 /* OrderVC.swift in Sources */,
+				1863FDDB24A5D4E60042CB23 /* URLRequestExtention.swift in Sources */,
+				1863FDE724A5D87A0042CB23 /* APIManager.swift in Sources */,
 				85166781247F360D003FFB87 /* ProfileVC.swift in Sources */,
 				852C3EDD249477C500BB73AA /* ProfileHomeVC.swift in Sources */,
 				85653C5C247C05C100F27006 /* User.swift in Sources */,
+				1863FDD724A5D3FF0042CB23 /* NetworkServices.swift in Sources */,
 				852C3EE1249482BE00BB73AA /* PHCell.swift in Sources */,
 				85653C56247C03E500F27006 /* Constant.swift in Sources */,
 				853F2F422495ED73006B3413 /* PBOCell.swift in Sources */,
@@ -555,6 +598,7 @@
 				85642DBF247C9CE800F6A341 /* Helper.swift in Sources */,
 				853C86BD249235640065153A /* OrderProduct.swift in Sources */,
 				85653C41247BAEBA00F27006 /* RegisterVC.swift in Sources */,
+				1863FDDD24A5D5C30042CB23 /* Save.swift in Sources */,
 				853F2F342495D951006B3413 /* OrderHistoryVC.swift in Sources */,
 				85233C83248F8C0D0067FCD8 /* InforProductVC.swift in Sources */,
 			);
