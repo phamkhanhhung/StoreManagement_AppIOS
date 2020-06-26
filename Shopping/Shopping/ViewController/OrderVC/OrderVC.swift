@@ -1,7 +1,7 @@
 //
 // OrderVC.swift.
 // Shopping.
-// 
+//
 
 import UIKit
 import Alamofire
@@ -115,7 +115,7 @@ extension OrderVC: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        lbTotalPrice.text = String(self.toltalPrice())
+        lbTotalPrice.text = String(self.toltalPrice()) + " đ"
         return Data.shared.oderProduct.count
     }
     
