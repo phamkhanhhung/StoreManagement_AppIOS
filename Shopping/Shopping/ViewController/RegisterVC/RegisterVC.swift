@@ -37,7 +37,7 @@ class RegisterVC: UIViewController {
         
         //self.navigationController?.popViewController(animated: true)
         if isValid() {
-            KRProgressHUD.show()
+//            KRProgressHUD.show()
             let user:String = tfUsername.text!
             let pass:String = tfPass.text!
             APIManager.shared.signup(username: user, pass: pass, progress: true) { (status) in

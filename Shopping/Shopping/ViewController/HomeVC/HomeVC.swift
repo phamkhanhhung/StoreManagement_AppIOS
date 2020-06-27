@@ -32,6 +32,7 @@ class HomeVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         initUI()
         initData()
         clvProduct.keyboardDismissMode = .interactive
@@ -91,72 +92,30 @@ extension HomeVC{
     @objc func showBranch() {
         
     }
-    
+    func returnIdBranch() -> String {
+        return String(selectedBranch.id)
+    }
     func initData(){
         KRProgressHUD.show()
         Data.shared.branch = []
-        AF.request("http://52.77.233.77:8081/api/Branch?page=1&pagesize=100", method: .get, parameters: nil,encoding: JSONEncoding.default, headers: nil).responseJSON {
-            response in
-            switch response.result {
-            case .success:
-                if let value = response.value {
-                    if let json = JSON(rawValue: value) {
-                        for js in json["items"].arrayValue {
-                            let pro = Branch.init(json: js)
-                            Data.shared.branch.append(pro)
-                            self.tbvChooses.reloadData()
-                        }
-                        if let branch = Data.shared.branch.first {
-                            self.selectedBranch = branch
-                        } else {
-                            KRProgressHUD.dismiss()
-                        }
-                    } else {
-                        KRProgressHUD.dismiss()
-                    }
-                } else {
-                    KRProgressHUD.dismiss()
-                }
-                break
-            case .failure(let error):
-                KRProgressHUD.dismiss()
-                print(response)
-                print(error)
-            }
+        APIManager.shared.getBranch(progress: true) { (branch) in
+            self.tbvChooses.reloadData()
+            self.selectedBranch = branch
         }
     }
     
     func reloadDataWith(brandId: Int, _ isShowProgress: Bool = true) {
-        if isShowProgress {
-            KRProgressHUD.show()
-        }
-        
-        AF.request("http://52.77.233.77:8081/api/Product/GetAllProductInBranch?BranchId=" + String(brandId) + "&page=1&pagesize=100", method: .get, parameters: nil,encoding: JSONEncoding.default, headers: nil).responseJSON {
-            response in
-            KRProgressHUD.dismiss()
-            switch response.result {
-            case .success:
-                if let value = response.value {
-                    if let json = JSON(rawValue: value) {
-                        let total = json["total"].intValue
-                        Data.shared.totalProduct = total
-                        Data.shared.product.removeAll()
-                        self.searchData.removeAll()
-                        for js in json["items"].arrayValue {
-                            let pro = Product.init(json: js)
-                            Data.shared.product.append(pro)
-                            self.searchData.append(pro)
-                        }
-                        self.clvProduct.reloadData()
-                        
-                    }
+        APIManager.shared.getProductByBranchId(branchid: brandId, progress: isShowProgress) { (json) in
+            if json != JSON.null {
+                Data.shared.product.removeAll()
+                self.searchData.removeAll()
+                for js in json["items"].arrayValue {
+                    let pro = Product.init(json: js)
+                    Data.shared.product.append(pro)
+                    self.searchData.append(pro)
                 }
-                
-                break
-            case .failure(let error):
-                
-                print(response)
-                print(error)
+                self.clvProduct.reloadData()
+
             }
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                 self.refreshControl.endRefreshing()
@@ -207,22 +166,13 @@ extension HomeVC: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HomeCell", for: indexPath as IndexPath) as! HomeCell
-        let str:String = searchData[indexPath.row ].categoryName + " " + searchData[indexPath.row].name
+        let str:String =  searchData[indexPath.row].name
         cell.lbNameProduct.text = String(str)
         cell.lbSupplierName.text = String(searchData[indexPath.row ].supplierName)
-        cell.lbPrice.attributedText = "đ".withAttributes([.underlineStyle(.single), .underlineColor(Color("F93963", alpha: 1))]) + " \(searchData[indexPath.row ].price)".attributedString
+        cell.lbPrice.attributedText = "đ".withAttributes([.underlineStyle(.single), .underlineColor(Color("F93963", alpha: 1))]) + " \(searchData[indexPath.row ].price.currency())".attributedString
         cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-        if !(searchData[indexPath.row].pictures.count <= 0){
-            cell.imgProduct.kf.setImage(with: URL(string: searchData[indexPath.row].pictures[0].imageUrl), placeholder: UIImage(named: "noimage"), options: [], progressBlock: { (a, b) in
-                
-            }) { (result) in
-                switch result {
-                case .success(let value):
-                    print("Task done for: \(value.source.url?.absoluteString ?? "")")
-                case .failure(let error):
-                    print("Job failed: \(error.localizedDescription)")
-                }
-            }
+        if searchData[indexPath.row].pictures.count > 0 {
+            cell.imgProduct.imageWithUrl(searchData[indexPath.row].pictures[0].imageUrl, placeholder: UIImage(named: "noimage"))
         }
 
         return cell
@@ -246,9 +196,9 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let vc = InforProductVC(nibName: "InforProductVC", bundle: nil)
-        let str1:String = searchData[indexPath.row ].categoryName + " " + searchData[indexPath.row].name
+        let str1:String =  searchData[indexPath.row].name
         vc.name = str1
-        vc.price = String(searchData[indexPath.row].price)
+        vc.price = String(searchData[indexPath.row].price.currency())
         vc.dicr = searchData[indexPath.row].description0
         vc.vitri = indexPath.row
         vc.Cty = searchData[indexPath.row].supplierName

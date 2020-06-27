@@ -27,11 +27,11 @@ class LoginVC: UIViewController {
     @IBAction func actionBack(_ sender: Any) {
         
         self.dismiss(animated: true, completion: nil)
-
+        
         
     }
     @IBAction func actionLogin(_ sender: Any) {
-        KRProgressHUD.show()
+//        KRProgressHUD.show()
         let user:String = tfUsername.text!
         let pass:String = tfPass.text!
         APIManager.shared.login(username: user, pass: pass, progress: true) { (user) in
@@ -42,11 +42,11 @@ class LoginVC: UIViewController {
     
     
     func goProfile()  {
-//
-//                let app = UIApplication.shared.delegate as! AppDelegate
-//                app.tabVC?.selectedIndex = 2
-                self.dismiss(animated: true, completion: nil)
-
+        //
+        //                let app = UIApplication.shared.delegate as! AppDelegate
+        //                app.tabVC?.selectedIndex = 2
+        self.dismiss(animated: true, completion: nil)
+        
         
     }
     
@@ -59,10 +59,14 @@ class LoginVC: UIViewController {
 extension LoginVC {
     func initUI() {
         lbRegister.addGestureRecognizer(UITapGestureRecognizer.init(target: self, action: #selector(actionRegister)))
-        #if targetEnvironment(simulator)
-        tfUsername.text = "admin"
-        tfPass.text = "12345678"
-        #endif
+        if let user:String = ((Save.get(.lgUserName) as? String)),user.count == 0 {
+            tfUsername.text =  "admin"
+            tfPass.text =  "12345678"
+        }else{
+            tfUsername.text =  ((Save.get(.lgUserName) as? String)) ?? "admin"
+            tfPass.text = ((Save.get(.lgPass) as? String)) ?? "12345678"
+        }
+        
     }
     
     func initData() {

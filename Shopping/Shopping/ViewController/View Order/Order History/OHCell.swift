@@ -34,7 +34,7 @@ extension OHCell {
         }else{
             lbStatus.text = "Unpaid"
         }
-        lbTotalPrice.text = String(order.totalPrice) + " đ"
+        lbTotalPrice.text = String(order.totalPrice.currency()) + " đ"
         selectionStyle = .none
     }
 }

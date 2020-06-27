@@ -7,7 +7,7 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 import KRProgressHUD
-
+import IQKeyboardManagerSwift
 class OrderVC: UIViewController{
     @IBOutlet weak var tbMain: UITableView!
     
@@ -22,8 +22,15 @@ class OrderVC: UIViewController{
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        AppDel.hidenBag = true
+        Data.shared.reloadBag()
         confixData()
         setupNav()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        AppDel.hidenBag = false
+        Data.shared.reloadBag()
     }
     
     func setupNav() {
@@ -45,40 +52,49 @@ class OrderVC: UIViewController{
                 orderDetail.append(param)
             }
             let parameters: [String:Any] = ["staffId": 1, "customerId": idstr, "status": false, "code":0, "branchId": Data.shared.branchid,"orderDetail": orderDetail]
-            let token = UserDefaults.standard.value(forKey: SaveKey.access_token.toString()) as? String ?? ""
-            
-            let headers: HTTPHeaders = ["Authorization": "Bearer \(token)"]
-            let urlrq:String = "http://52.77.233.77:8081/api/Order"
-            AF.request(urlrq, method: .post, parameters: parameters,encoding: JSONEncoding.default, headers: headers).responseJSON {
-                response in
-                KRProgressHUD.dismiss()
-                switch response.result {
-                case .success:
-                    if let value = response.value {
-                        if JSON(rawValue: value) != nil {
-                            
-                            Data.shared.oderProduct.removeAll()
-                            self.tbMain.reloadData()
-                            Helper.alertOrderSucc(msg: "Order successful!", target: self)
-
-                        }
-                    }
-                    
-                    break
-                case .failure(let error):
-                    print(response)
-                    print(error)
+            APIManager.shared.postOrder(parameters: parameters, progress: true) { (status) in
+                if status {
+                    Data.shared.oderProduct.removeAll()
+                    self.tbMain.reloadData()
+                    Helper.alertOrderSucc(msg: "Order successful!", target: self)
                 }
-                
             }
-        }
-        if Data.shared.oderProduct.count == 0 {
-            Helper.alert(msg: "Please add product to this order", target: self)
+//            let token = UserDefaults.standard.value(forKey: SaveKey.access_token.toString()) as? String ?? ""
+//
+//            let headers: HTTPHeaders = ["Authorization": "Bearer \(token)"]
+//            let urlrq:String = "http://52.77.233.77:8081/api/Order"
+//            AF.request(urlrq, method: .post, parameters: parameters,encoding: JSONEncoding.default, headers: headers).responseJSON {
+//                response in
+//                KRProgressHUD.dismiss()
+//                switch response.result {
+//                case .success:
+//                    if let value = response.value {
+//                        if let json = JSON(rawValue: value) {
+//                            let message = json["message"].boolValue
+//                            Data.shared.oderProduct.removeAll()
+//                            self.tbMain.reloadData()
+//                            Helper.alertOrderSucc(msg: "Order successful!", target: self)
+//
+//                        }
+//                    }
+//
+//                    break
+//                case .failure(let error):
+//                    print(response)
+//                    print(error)
+//                }
+//
+//            }
         }else{
-            if idstr == 0{
-                Helper.alertLogin(msg: "Please log in!", target: self)
+            if Data.shared.oderProduct.count == 0 {
+                Helper.alert(msg: "Please add product to this order", target: self)
+            }else{
+                if idstr == 0{
+                    Helper.alertLogin(msg: "Please log in!", target: self)
+                }
             }
         }
+        
     }
     
     
@@ -115,7 +131,7 @@ extension OrderVC: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        lbTotalPrice.text = String(self.toltalPrice()) + " đ"
+        lbTotalPrice.text = String(self.toltalPrice().currency()) + " đ"
         return Data.shared.oderProduct.count
     }
     
@@ -129,17 +145,8 @@ extension OrderVC: UITableViewDataSource {
             Data.shared.oderProduct.remove(at: indexPath.row)
             self.tbMain.reloadData()
         }
-        if !(Data.shared.oderProduct[indexPath.row].product.pictures.count <= 0){
-            cell.imgProduct.kf.setImage(with: URL(string: Data.shared.oderProduct[indexPath.row].product.pictures[0].imageUrl), placeholder: UIImage(named: "noimage"), options: [], progressBlock: { (a, b) in
-                
-            }) { (result) in
-                switch result {
-                case .success(let value):
-                    print("Task done for: \(value.source.url?.absoluteString ?? "")")
-                case .failure(let error):
-                    print("Job failed: \(error.localizedDescription)")
-                }
-            }
+        if Data.shared.oderProduct[indexPath.row].product.pictures.count > 0{
+            cell.imgProduct.imageWithUrl(Data.shared.oderProduct[indexPath.row].product.pictures.first?.imageUrl ?? "", placeholder: UIImage(named: "noimage"))
         }
         
         return cell

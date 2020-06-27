@@ -17,12 +17,16 @@ class Data: NSObject {
     var totalProduct:Int = 0
     var oderProduct: [OrderProduct] = [] {
         didSet {
-            AppDel.vBag.isHidden = oderProduct.count == 0
-            AppDel.lbCount.text = String(oderProduct.count)
+            reloadBag()
         }
     }
     var branch:[Branch] = []
     var branchid:Int = 0
     var orderHistory:[OrderHistory] = []
     var listProductInOrder:[ListProductInOrder] = []
+    
+    func reloadBag() {
+        AppDel.vBag.isHidden = !(oderProduct.count > 0 && !AppDel.hidenBag)
+        AppDel.lbCount.text = String(oderProduct.count)
+    }
 }
