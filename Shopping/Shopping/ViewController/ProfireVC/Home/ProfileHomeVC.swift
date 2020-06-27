@@ -21,7 +21,7 @@ class ProfileHomeVC: UIViewController ,UITableViewDataSource,UITableViewDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        title = "Me"
         tbvChoose.register(UINib.init(nibName: "PHCell", bundle: nil), forCellReuseIdentifier: "PHCell")
         tbvChoose.dataSource = self
         tbvChoose.delegate = self
@@ -97,7 +97,8 @@ class ProfileHomeVC: UIViewController ,UITableViewDataSource,UITableViewDelegate
                 UserDefaults.standard.removeObject(forKey: SaveKey.isLogin.toString())
                 UserDefaults.standard.removeObject(forKey: SaveKey.idlogin.toString())
                 Data.shared.orderHistory.removeAll()
-//                Data.shared.oderProduct.removeAll()
+//               Data.shared.oderProduct.removeAll()
+                Data.shared.userProfile = UserInformation()
                 checkLogin()
                 tableView.reloadData()
             }
@@ -109,7 +110,6 @@ class ProfileHomeVC: UIViewController ,UITableViewDataSource,UITableViewDelegate
     func setTF() {
         lbName.isHidden = false
         lbName.text = String( Data.shared.userProfile.username )
-        //lbName.text = "aefewfwef"
     }
     
     
@@ -118,61 +118,21 @@ extension ProfileHomeVC {
     func initUI() {
         
         
-        // self.setTF()
+        self.setTF()
         self.tbvChoose.reloadData()
-        if !(Data.shared.userProfile.image.count <= 0){
-            self.imgAvata.kf.setImage(with: URL(string: Data.shared.userProfile.image), placeholder: UIImage(named: "noavata"), options: [], progressBlock: { (a, b) in
-                
-            }) { (result) in
-                switch result {
-                case .success(let value):
-                    print("Task done for: \(value.source.url?.absoluteString ?? "")")
-                case .failure(let error):
-                    print("Job failed: \(error.localizedDescription)")
-                }
-            }
+        if Data.shared.userProfile.image.count > 0 {
+            self.imgAvata.imageWithUrl(Data.shared.userProfile.image, placeholder: UIImage(named: "noimage"))
         }
     }
     
     func initData() {
         let isLogin:Bool = UserDefaults.standard.value(forKey: SaveKey.isLogin.toString()) as? Bool ?? false
         if isLogin {
-            KRProgressHUD.show()
-            let idstr = UserDefaults.standard.value(forKey: SaveKey.idlogin.toString()) as? Int ?? 0
-            let urlrq:String = "http://52.77.233.77:8081/api/User/"+String(idstr)
-            let token = UserDefaults.standard.value(forKey: SaveKey.access_token.toString()) as? String ?? ""
-            
-            let headers: HTTPHeaders = ["Authorization": "Bearer \(token)"]
-            AF.request(urlrq, method: .get, parameters: nil,encoding: JSONEncoding.default, headers: headers).responseJSON {
-                response in
-                KRProgressHUD.dismiss()
-                switch response.result {
-                case .success:
-                    if let value = response.value {
-                        if let json = JSON(rawValue: value) {
-                            Data.shared.userProfile = UserInformation()
-                            let user = UserInformation(json: json)
-                            Data.shared.userProfile = user
-                            //self.lbName.text = String( user.name)
-                            self.setTF()
-                            
-                            
-                        }
-                    }
-                    
-                    break
-                case .failure(let error):
-                    
-                    print(response)
-                    print(error)
+            APIManager.shared.getUser(progress: true) { (starus) in
+                if starus {
+                    self.setTF()
                 }
-                
             }
-            
-            
         }
     }
-    
-    
-    
 }

@@ -51,20 +51,11 @@ class ProductByOrderVC: UIViewController ,UITableViewDelegate,UITableViewDataSou
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PBOCell", for: indexPath as IndexPath) as! PBOCell
         cell.lbName.text = String( Data.shared.listProductInOrder[indexPath.row].productName)
-        cell.lbPrice.text = String( Data.shared.listProductInOrder[indexPath.row].price)
+        cell.lbPrice.text = String( Data.shared.listProductInOrder[indexPath.row].price.currency())
         cell.lbQuantity.text = "(" + String(Data.shared.listProductInOrder[indexPath.row].quantity) + " items)"
-        if !(Data.shared.listProductInOrder[indexPath.row].picture.count <= 0){
-                   cell.imgProduct.kf.setImage(with: URL(string: Data.shared.listProductInOrder[indexPath.row].picture[0].imageUrl), placeholder: UIImage(named: "noimage"), options: [], progressBlock: { (a, b) in
-                       
-                   }) { (result) in
-                       switch result {
-                       case .success(let value):
-                           print("Task done for: \(value.source.url?.absoluteString ?? "")")
-                       case .failure(let error):
-                           print("Job failed: \(error.localizedDescription)")
-                       }
-                   }
-               }
+        if Data.shared.listProductInOrder[indexPath.row].picture.count > 0 {
+            cell.imgProduct.imageWithUrl(Data.shared.listProductInOrder[indexPath.row].picture[0].imageUrl, placeholder: UIImage(named: "noimage"))
+        }
         return cell
     }
     

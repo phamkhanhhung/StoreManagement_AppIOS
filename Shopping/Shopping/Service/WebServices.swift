@@ -11,14 +11,14 @@ import Alamofire
 class WebServices: NSObject {
     static let shared = WebServices()
     
-    func request<T:Decodable>(_ apiRouter: URLRequestConvertible, hasProgress: Bool, decoder: JSONDecoder = JSONDecoder(), completion: @escaping (Result<T, AFError>) -> Void) {
+    func request(_ apiRouter: URLRequestConvertible, hasProgress: Bool, completion: @escaping (Result<JSON, AFError>) -> Void) {
         if !NetworkServices.isNetworkAvailable() {
             return
         }
         if hasProgress {
             KRProgressHUD.show()
         }
-        AF.request(apiRouter).responseDecodable (decoder: decoder) { (response: DataResponse<T, AFError>) in
+        AF.request(apiRouter).responseDecodable (decoder: JSONDecoder()) { (response: DataResponse<JSON, AFError>) in
             if hasProgress {
                 KRProgressHUD.dismiss()
             }

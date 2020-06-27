@@ -9,6 +9,8 @@ enum SaveKey: String {
     case access_token
     case isLogin
     case idlogin
+    case lgUserName
+    case lgPass
     func toString() -> String {
         return self.rawValue
     }

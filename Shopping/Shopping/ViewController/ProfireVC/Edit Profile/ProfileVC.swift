@@ -94,9 +94,9 @@ class ProfileVC: UIViewController {
     
     
     @IBAction func actionBack(_ sender: Any) {
-//        let app = UIApplication.shared.delegate as! AppDelegate
-//        app.tabVC?.selectedIndex = 2
-//        self.dismiss(animated: true, completion: nil)
+        //        let app = UIApplication.shared.delegate as! AppDelegate
+        //        app.tabVC?.selectedIndex = 2
+        //        self.dismiss(animated: true, completion: nil)
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -146,82 +146,26 @@ class ProfileVC: UIViewController {
         
         let image:String = ""
         let groupUserId:Int = formatGroupUserId()
-        var parameters:[String:Any]?
-        parameters = ["name": name, "email": email, "address": address, "phoneNumber":phoneNumber,"gender": gender,  "dateOfBirth": datestr, "image": image, "groupUserId": groupUserId ]
-        let idstr = UserDefaults.standard.value(forKey: SaveKey.idlogin.toString()) as? Int ?? 0
-        let token = UserDefaults.standard.value(forKey: SaveKey.access_token.toString()) as? String ?? ""
         
-        let headers: HTTPHeaders = ["Authorization": "Bearer \(token)"]
-        let urlrq:String = "http://52.77.233.77:8081/api/User/"+String( idstr)
-        KRProgressHUD.show()
-        AF.request(urlrq, method: .put, parameters: parameters,encoding: JSONEncoding.default, headers: headers).responseJSON {
-            response in
-            KRProgressHUD.dismiss()
-            switch response.result {
-            case .success:
-                self.initData()
-                if let value = response.value {
-                    if JSON(rawValue: value) != nil {
-                        Helper.alertUpdateProfile(msg: "Update successful!", target: self)
-                    }
-                }
-                
-                break
-            case .failure(let error):
-                Helper.alertUpdateProfile(msg: "Update successful!", target: self)
-                self.initData()
-                print(response)
-                print(error)
-            }
+        APIManager.shared.putUser(name: name, email: email, address: address, phoneNumber: phoneNumber, gender: gender, dateOfBirth: datestr, image: image, groupUserId: groupUserId, progress: true) { (status) in
+            Helper.alertUpdateProfile(msg: "Update successful!", target: self)
+            self.initData()
         }
     }
 }
 
 extension ProfileVC {
     func initUI() {
-        
-        
         self.setTF()
-
-        
-        
     }
     
     func initData() {
-        KRProgressHUD.show()
-        let idstr = UserDefaults.standard.value(forKey: SaveKey.idlogin.toString()) as? Int ?? 0
-        let token = UserDefaults.standard.value(forKey: SaveKey.access_token.toString()) as? String ?? ""
-        
-        let headers: HTTPHeaders = ["Authorization": "Bearer \(token)"]
-        let urlrq:String = "http://52.77.233.77:8081/api/User/"+String( idstr)
-        AF.request(urlrq, method: .get, parameters: nil,encoding: JSONEncoding.default, headers: headers).responseJSON {
-            response in
-            KRProgressHUD.dismiss()
-            switch response.result {
-            case .success:
-                if let value = response.value {
-                    if let json = JSON(rawValue: value) {
-                        Data.shared.userProfile = UserInformation()
-                        let user = UserInformation(json: json)
-                        Data.shared.userProfile = user
-                        self.setTF()
-                        
-                        
-                    }
-                    
-                }
-                
-                break
-            case .failure(let error):
-                
-                print(response)
-                print(error)
+        APIManager.shared.getUser(progress: true) { (status) in
+            if status {
+                self.setTF()
+            }else{
+                print("erro")
             }
-            
         }
-        
-        
     }
-    
-    
 }

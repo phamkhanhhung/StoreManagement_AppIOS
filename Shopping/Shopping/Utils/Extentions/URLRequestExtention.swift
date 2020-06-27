@@ -84,3 +84,17 @@ public struct ArrayEncoding: ParameterEncoding {
         return urlRequest
     }
 }
+
+extension Int {
+    func currency() -> String {
+        let formatter = NumberFormatter()
+        formatter.secondaryGroupingSize = 3
+        formatter.groupingSize = 3
+        formatter.minimumFractionDigits = 0
+        formatter.maximumFractionDigits = 0
+        formatter.numberStyle = .decimal
+        formatter.groupingSeparator = ","
+        
+        return formatter.string(from: NSNumber(value: self)) ?? "0"
+    }
+}
