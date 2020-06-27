@@ -158,7 +158,7 @@
         </view>
     </objects>
     <resources>
-        <image name="back" width="30" height="22"/>
+        <image name="back" width="12" height="20"/>
         <namedColor name="color_app_main">
             <color red="0.97647058823529409" green="0.22352941176470589" blue="0.38823529411764707" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

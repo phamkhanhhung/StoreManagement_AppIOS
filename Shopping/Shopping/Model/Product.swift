@@ -8,6 +8,7 @@ import Alamofire
 import SwiftyJSON
 class Product: NSObject {
     var id :Int = 0
+    var quantity :Int = 0
     var name :String = ""
     var description0 : String = ""
     var price :Int = 0
@@ -23,6 +24,7 @@ class Product: NSObject {
         
         id = json["id"].intValue
         name = json["name"].stringValue
+        quantity = json["quantity"].intValue
         description0 = json["description"].stringValue
         price = json["price"].intValue
         discount = json["discount"].intValue

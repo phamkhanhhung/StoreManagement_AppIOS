@@ -13,18 +13,23 @@ class InforProductVC: UIViewController,UICollectionViewDelegate,UICollectionView
     @IBOutlet weak var imgProductView: UIImageView!
     @IBOutlet weak var lbNameP: UILabel!
     @IBOutlet weak var lbPrive: UILabel!
-    @IBOutlet weak var lbSoLuong: UILabel!
-    @IBOutlet weak var btTruSL: UIButton!
+    //    @IBOutlet weak var lbSoLuong: UILabel!
+    //    @IBOutlet weak var btTruSL: UIButton!
     @IBOutlet weak var clvImage: UICollectionView!
     @IBOutlet weak var lbDescription: UILabel!
+    //    @IBOutlet weak var btCongSL: UIButton!
+    
+    @IBOutlet weak var lbSoLuong: UILabel!
     @IBOutlet weak var btCongSL: UIButton!
+    @IBOutlet weak var btTruSL: UIButton!
+    @IBOutlet weak var lbCongty: UILabel!
     
     var SoLuong:Int = 1
     var name:String = ""
     var price:String = ""
     var dicr:String = ""
     var vitri:Int = 0
-    
+    var Cty:String = ""
     
     
     override func viewDidLoad() {
@@ -34,6 +39,7 @@ class InforProductVC: UIViewController,UICollectionViewDelegate,UICollectionView
         lbDescription.text = dicr
         lbNameP.text = name
         lbPrive.text = price
+        lbCongty.text = Cty
         if SoLuong == 1{
             btTruSL.isUserInteractionEnabled = false
         }
@@ -42,9 +48,10 @@ class InforProductVC: UIViewController,UICollectionViewDelegate,UICollectionView
         clvImage.delegate = self
         
     }
-    
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        SoLuong = 1
+        lbSoLuong.text = String(SoLuong)
     }
     func setupNav() {
         let right = UIBarButtonItem(image: #imageLiteral(resourceName: "back").withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(self.showBranch))
@@ -55,6 +62,10 @@ class InforProductVC: UIViewController,UICollectionViewDelegate,UICollectionView
         //            let app = UIApplication.shared.delegate as! AppDelegate
         //            app.tabVC?.selectedIndex = 0
         navigationController?.popViewController(animated: true)
+    }
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -89,13 +100,15 @@ class InforProductVC: UIViewController,UICollectionViewDelegate,UICollectionView
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let wihth = view.frame.width - 10
         
-        let height = view.frame.height * 2 / 5
+        let height = (view.frame.height * 2 / 5) - 10
         return CGSize(width: wihth, height: height)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 10
     }
+    
+    
     @IBAction func actionTruSL(_ sender: Any) {
         SoLuong-=1
         lbSoLuong.text = String(SoLuong)
@@ -103,11 +116,14 @@ class InforProductVC: UIViewController,UICollectionViewDelegate,UICollectionView
             btTruSL.isUserInteractionEnabled = false
         }
     }
+    
     @IBAction func actionCongSL(_ sender: Any) {
         SoLuong+=1
         btTruSL.isUserInteractionEnabled = true
         lbSoLuong.text = String(SoLuong)
     }
+    
+    
     
     
     @IBAction func actionAddToCart(_ sender: Any) {
@@ -116,6 +132,8 @@ class InforProductVC: UIViewController,UICollectionViewDelegate,UICollectionView
         op.SoLuong = Int(lbSoLuong.text ?? "0")!
         op.idProduct = Data.shared.product[vitri].id
         Data.shared.oderProduct.append(op)
+        
+        
         let vc = OrderVC(nibName: "OrderVC", bundle: nil)
         let nav = UINavigationController(rootViewController: vc)
         nav.modalPresentationStyle = .fullScreen

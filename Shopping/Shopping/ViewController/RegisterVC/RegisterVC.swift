@@ -40,43 +40,13 @@ class RegisterVC: UIViewController {
             KRProgressHUD.show()
             let user:String = tfUsername.text!
             let pass:String = tfPass.text!
-            var parameters:[String:String]?
-            parameters = ["username": user as String,"password":pass ]
-            AF.request("http://52.77.233.77:8081/api/Auth/register", method: .post, parameters: parameters,encoding: JSONEncoding.default, headers: nil).responseJSON {
-                response in
-                KRProgressHUD.dismiss()
-                switch response.result {
-                    
-                    
-                case .success:
-                    if let value = response.value {
-                        if let json = JSON(rawValue: value) {
-                            let acc = json["message"].boolValue
-                            if acc {
-                                Helper.alertSignUp(msg: "Sign up success, Please login!", target: self)
-                            }else{
-                                Helper.alert(msg: "Your user name is duplicate. Please sign up again!", target: self)
-                            }                        
-                            print(acc)
-                        }
-                    }
-                   
-                    
-//                    self.gotoLogin()
-                    
-                    
-                    break
-                case .failure(_):
-                    print(response.result)
-//                    self.gotoLogin()
-                    
-                    
-                    
+            APIManager.shared.signup(username: user, pass: pass, progress: true) { (status) in
+                if status {
+                    Helper.alertSignUp(msg: "Sign up success, Please login!", target: self)
+                }else{
+                    Helper.alert(msg: "Your user name is duplicate. Please sign up again!", target: self)
                 }
-                
             }
-            
-            
             
         }
     }

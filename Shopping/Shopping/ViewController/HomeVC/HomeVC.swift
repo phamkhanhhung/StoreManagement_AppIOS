@@ -210,7 +210,7 @@ extension HomeVC: UICollectionViewDataSource {
         let str:String = searchData[indexPath.row ].categoryName + " " + searchData[indexPath.row].name
         cell.lbNameProduct.text = String(str)
         cell.lbSupplierName.text = String(searchData[indexPath.row ].supplierName)
-        cell.lbPrice.attributedText = "đ".withAttributes([.underlineStyle(.single), .underlineColor(Color("F93963", alpha: 1)), .font(Font.systemFont(ofSize: 13, weight: .bold))]) + " \(searchData[indexPath.row ].price)".attributedString
+        cell.lbPrice.attributedText = "đ".withAttributes([.underlineStyle(.single), .underlineColor(Color("F93963", alpha: 1))]) + " \(searchData[indexPath.row ].price)".attributedString
         cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         if !(searchData[indexPath.row].pictures.count <= 0){
             cell.imgProduct.kf.setImage(with: URL(string: searchData[indexPath.row].pictures[0].imageUrl), placeholder: UIImage(named: "noimage"), options: [], progressBlock: { (a, b) in
@@ -251,6 +251,7 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
         vc.price = String(searchData[indexPath.row].price)
         vc.dicr = searchData[indexPath.row].description0
         vc.vitri = indexPath.row
+        vc.Cty = searchData[indexPath.row].supplierName
         collectionView.deselectItem(at: indexPath, animated: true)
         vc.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(vc, animated: true)
