@@ -108,7 +108,7 @@ class ProfileHomeVC: UIViewController ,UITableViewDataSource,UITableViewDelegate
     }
     func setTF() {
         lbName.isHidden = false
-        lbName.text = String( Data.shared.userProfile.name )
+        lbName.text = String( Data.shared.userProfile.username )
         //lbName.text = "aefewfwef"
     }
     

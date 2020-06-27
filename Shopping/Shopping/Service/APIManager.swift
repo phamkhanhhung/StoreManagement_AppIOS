@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 class APIManager: NSObject {
     static let shared = APIManager()
@@ -29,4 +30,20 @@ class APIManager: NSObject {
             }
         }
     }
+    func signup(username: String, pass: String, progress: Bool, _ completion: @escaping ((Bool) -> Void)) {
+        APIService.shared.signup(username: username, pass: pass, hasProgress: progress) { (result) in
+            switch result {
+            case .success(let json):
+            
+                let acc = json["message"].boolValue
+                completion(acc)
+                break
+            case .failure(let error):
+                print(error.localizedDescription)
+                completion(false)
+                break
+            }
+        }
+    }
+    
 }

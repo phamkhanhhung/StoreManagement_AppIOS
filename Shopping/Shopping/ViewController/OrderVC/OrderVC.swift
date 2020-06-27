@@ -16,7 +16,7 @@ class OrderVC: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "New Order"
+        title = "Your Shopping Cart"
         tbMain.register(UINib(nibName: "OrderCell", bundle: nil), forCellReuseIdentifier: "OrderCell")
     }
     

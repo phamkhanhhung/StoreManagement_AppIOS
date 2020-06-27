@@ -14,11 +14,12 @@ enum APIRouter: URLRequestConvertible {
     static private let token = (Save.get(.access_token) as? String) ?? ""
     
     case login(username: String, pass: String)
-    
+    case signup(username: String, pass: String)
     // MARK: - Path
     private var path: String {
         switch self {
         case .login: return "Auth/login"
+        case .signup: return "Auth/register"
         }
     }
     
@@ -26,6 +27,7 @@ enum APIRouter: URLRequestConvertible {
     private var method: HTTPMethod {
         switch self {
         case .login: return .post
+        case .signup: return .post
         }
     }
     
@@ -35,7 +37,11 @@ enum APIRouter: URLRequestConvertible {
         case .login(let username, let pass):
             return ["username" : username,
                     "password" : pass]
+        case .signup(let username, let pass):
+        return ["username" : username,
+                "password" : pass]
         }
+        
     }
     
     // MARK: - headers
@@ -43,7 +49,11 @@ enum APIRouter: URLRequestConvertible {
         switch self {
         case .login:
             return [:]
+        case .signup:
+            return [:]
+            
         }
+        
     }
     
     // MARK: - EndPoint

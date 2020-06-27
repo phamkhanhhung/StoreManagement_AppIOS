@@ -17,4 +17,7 @@ final class APIService: NSObject {
     func login(username: String, pass: String, hasProgress: Bool, _ completion: @escaping ((Result<JSON, AFError>) -> Void)) {
         WebServices.shared.request(APIRouter.login(username: username, pass: pass), hasProgress: hasProgress, completion: completion)
     }
+    func signup(username: String, pass: String, hasProgress: Bool, _ completion: @escaping ((Result<JSON, AFError>) -> Void)) {
+        WebServices.shared.request(APIRouter.signup(username: username, pass: pass), hasProgress: hasProgress, completion: completion)
+    }
 }

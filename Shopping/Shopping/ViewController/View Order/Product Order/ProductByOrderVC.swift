@@ -15,6 +15,7 @@ class ProductByOrderVC: UIViewController ,UITableViewDelegate,UITableViewDataSou
     @IBOutlet weak var tbvProductBO: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Order Details"
         tbvProductBO.register(UINib.init(nibName: "PBOCell", bundle: nil), forCellReuseIdentifier: "PBOCell")
         tbvProductBO.dataSource = self
         tbvProductBO.delegate = self
@@ -32,6 +33,17 @@ class ProductByOrderVC: UIViewController ,UITableViewDelegate,UITableViewDataSou
         self.dismiss(animated: true, completion: nil)
     }
     
+    func setupNav() {
+        let right = UIBarButtonItem(image: #imageLiteral(resourceName: "back").withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(self.showBranch))
+        self.navigationItem.leftBarButtonItem = right
+    }
+    
+    @objc func showBranch() {
+        //            let app = UIApplication.shared.delegate as! AppDelegate
+        //            app.tabVC?.selectedIndex = 0
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return Data.shared.listProductInOrder.count
     }
@@ -40,7 +52,7 @@ class ProductByOrderVC: UIViewController ,UITableViewDelegate,UITableViewDataSou
         let cell = tableView.dequeueReusableCell(withIdentifier: "PBOCell", for: indexPath as IndexPath) as! PBOCell
         cell.lbName.text = String( Data.shared.listProductInOrder[indexPath.row].productName)
         cell.lbPrice.text = String( Data.shared.listProductInOrder[indexPath.row].price)
-        cell.lbQuantity.text = String(Data.shared.listProductInOrder[indexPath.row].quantity)
+        cell.lbQuantity.text = "(" + String(Data.shared.listProductInOrder[indexPath.row].quantity) + " items)"
         if !(Data.shared.listProductInOrder[indexPath.row].picture.count <= 0){
                    cell.imgProduct.kf.setImage(with: URL(string: Data.shared.listProductInOrder[indexPath.row].picture[0].imageUrl), placeholder: UIImage(named: "noimage"), options: [], progressBlock: { (a, b) in
                        
@@ -63,7 +75,7 @@ class ProductByOrderVC: UIViewController ,UITableViewDelegate,UITableViewDataSou
 }
 extension ProductByOrderVC{
     func initUI()  {
-        
+        setupNav()
     }
     
     func initData(){

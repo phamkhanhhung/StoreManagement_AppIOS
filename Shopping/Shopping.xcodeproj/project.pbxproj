@@ -247,8 +247,8 @@
 			isa = PBXGroup;
 			children = (
 				1863FDD624A5D3FF0042CB23 /* NetworkServices.swift */,
-				1863FDE224A5D82C0042CB23 /* WebServices.swift */,
 				1863FDD824A5D4B60042CB23 /* APIRouter.swift */,
+				1863FDE224A5D82C0042CB23 /* WebServices.swift */,
 				1863FDE424A5D8790042CB23 /* APIService.swift */,
 				1863FDE524A5D87A0042CB23 /* APIManager.swift */,
 			);
@@ -748,7 +748,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9VNJ56KPX5;
 				INFOPLIST_FILE = "Shopping/Supporting Files/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -768,7 +768,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9VNJ56KPX5;
 				INFOPLIST_FILE = "Shopping/Supporting Files/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
