@@ -138,6 +138,7 @@ class InforProductVC: UIViewController,UICollectionViewDelegate,UICollectionView
         let nav = UINavigationController(rootViewController: vc)
         nav.modalPresentationStyle = .fullScreen
         self.present(nav, animated: true, completion: nil)
+//        navigationController?.pushViewController(vc, animated: true)
     }
     
 }
