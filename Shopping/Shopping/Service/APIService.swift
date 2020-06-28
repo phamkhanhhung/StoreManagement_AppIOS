@@ -40,4 +40,10 @@ final class APIService: NSObject {
     func postOrder(parameters:[String:Any],hasProgress: Bool, _ completion: @escaping ((Result<JSON, AFError>) -> Void)) {
         WebServices.shared.request(APIRouter.postOrder(parameters: parameters), hasProgress: hasProgress, completion: completion)
     }
+    func getOrderByUserId(Id:String, hasProgress: Bool, _ completion: @escaping ((Result<JSON, AFError>) -> Void)) {
+        WebServices.shared.request(APIRouter.getOrderByUserId(Id: Id), hasProgress: hasProgress, completion: completion)
+    }
+    func getOrderDetail(OrderId:String, hasProgress: Bool, _ completion: @escaping ((Result<JSON, AFError>) -> Void)) {
+        WebServices.shared.request(APIRouter.getOrderDetail(OrderId: OrderId), hasProgress: hasProgress, completion: completion)
+    }
 }

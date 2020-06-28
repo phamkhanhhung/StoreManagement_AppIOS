@@ -21,6 +21,8 @@ enum APIRouter: URLRequestConvertible {
     case getBranch
     case getProductByBranchId(branchid:Int)
     case postOrder(parameters:[String:Any])
+    case getOrderByUserId(Id:String)
+    case getOrderDetail(OrderId:String)
     // MARK: - Path
     private var path: String {
         switch self {
@@ -31,6 +33,8 @@ enum APIRouter: URLRequestConvertible {
         case .getBranch: return "Branch?page=1&pagesize=100"
         case .getProductByBranchId(let branchid): return "Product/GetAllProductInBranch?BranchId=\(String(branchid))&page=1&pagesize=100"
         case .postOrder: return "Order"
+        case .getOrderByUserId(let Id): return "Order/GetAllOrder?customerId=" + String(Id) + "&page=1&pagesize=100"
+        case .getOrderDetail(let OrderId): return "OrderDetail?OrderId=" + String(OrderId) + "&page=1&pagesize=100"
         }
     }
     
@@ -44,6 +48,8 @@ enum APIRouter: URLRequestConvertible {
         case .getBranch:return .get
         case .getProductByBranchId: return .get
         case .postOrder: return .post
+        case .getOrderByUserId: return .get
+        case .getOrderDetail: return .get
         }
     }
     
@@ -66,6 +72,11 @@ enum APIRouter: URLRequestConvertible {
             return nil
         case .postOrder(let parameters):
             return parameters
+        case .getOrderByUserId:
+            return nil
+        case .getOrderDetail:
+            return nil
+        
         }
     }
     
@@ -85,6 +96,10 @@ enum APIRouter: URLRequestConvertible {
         case .getProductByBranchId:
             return [:]
         case .postOrder:
+            return ["Authorization": "Bearer \(APIRouter.token)"]
+        case .getOrderByUserId:
+            return ["Authorization": "Bearer \(APIRouter.token)"]
+        case .getOrderDetail:
             return ["Authorization": "Bearer \(APIRouter.token)"]
         }
         
