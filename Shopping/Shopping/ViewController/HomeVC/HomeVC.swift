@@ -45,7 +45,7 @@ class HomeVC: UIViewController {
         super.viewWillAppear(animated)
         initUI()
         self.lbSearch.endEditing(false)
-
+        
     }
     
     @IBAction func actionChangeBranch(_ sender: Any) {
@@ -85,8 +85,6 @@ extension HomeVC{
     }
     
     func setupNav() {
-//        let right = UIBarButtonItem(image: #imageLiteral(resourceName: "home_branch").withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(self.showBranch))
-//        self.navigationItem.rightBarButtonItem = right
     }
     
     @objc func showBranch() {
@@ -115,7 +113,7 @@ extension HomeVC{
                     self.searchData.append(pro)
                 }
                 self.clvProduct.reloadData()
-
+                
             }
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                 self.refreshControl.endRefreshing()
@@ -147,7 +145,7 @@ extension HomeVC: UITableViewDelegate {
         vBranch.isHidden = true
         btChange.setAttributedTitle("Change".withAttributes([.textColor(Color("F93963", alpha: 1)), .underlineStyle(.single), .underlineColor(Color("F93963", alpha: 1))]), for: .normal)
         Data.shared.product.removeAll()
-//        self.lbSearch.text = ""
+        //        self.lbSearch.text = ""
         self.searchData.removeAll()
         self.clvProduct.reloadData()
         self.tbvChooses.reloadData()
@@ -174,7 +172,7 @@ extension HomeVC: UICollectionViewDataSource {
         if searchData[indexPath.row].pictures.count > 0 {
             cell.imgProduct.imageWithUrl(searchData[indexPath.row].pictures[0].imageUrl, placeholder: UIImage(named: "noimage"))
         }
-
+        
         return cell
     }
 }
@@ -205,9 +203,9 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
         collectionView.deselectItem(at: indexPath, animated: true)
         vc.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(vc, animated: true)
-//        let nav = UINavigationController(rootViewController: vc)
-//        nav.modalPresentationStyle = .fullScreen
-//        self.present(nav, animated: true, completion: nil)
+        //        let nav = UINavigationController(rootViewController: vc)
+        //        nav.modalPresentationStyle = .fullScreen
+        //        self.present(nav, animated: true, completion: nil)
         
     }
 }
@@ -254,7 +252,7 @@ extension UIViewController {
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
     }
-
+    
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }

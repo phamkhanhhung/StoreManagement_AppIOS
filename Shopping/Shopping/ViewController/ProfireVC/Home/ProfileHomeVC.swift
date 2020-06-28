@@ -44,20 +44,16 @@ class ProfileHomeVC: UIViewController ,UITableViewDataSource,UITableViewDelegate
         
     }
     
-    
     func checkLogin() {
         let isLogin:Bool = UserDefaults.standard.value(forKey: SaveKey.isLogin.toString()) as? Bool ?? false
         if isLogin {
-//            imgAvata.isHidden = false
             lbName.text = String(Data.shared.userProfile.name)
             btlogin.isHidden = true
         }else{
-//            imgAvata.isHidden = true
             lbName.text = ""
             btlogin.isHidden = false
         }
     }
-    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let isLogin:Bool = UserDefaults.standard.value(forKey: SaveKey.isLogin.toString()) as? Bool ?? false
@@ -84,9 +80,6 @@ class ProfileHomeVC: UIViewController ,UITableViewDataSource,UITableViewDelegate
             if indexPath.row == 0{
                 // edit profile
                 let vc = ProfileVC(nibName: "ProfileVC", bundle: nil)
-//                let nav = UINavigationController(rootViewController: vc)
-//                nav.modalPresentationStyle = .fullScreen
-//                self.present(nav, animated: true, completion: nil)
                 vc.hidesBottomBarWhenPushed = true
                 self.navigationController?.pushViewController(vc, animated: true)
                 
@@ -97,7 +90,6 @@ class ProfileHomeVC: UIViewController ,UITableViewDataSource,UITableViewDelegate
                 UserDefaults.standard.removeObject(forKey: SaveKey.isLogin.toString())
                 UserDefaults.standard.removeObject(forKey: SaveKey.idlogin.toString())
                 Data.shared.orderHistory.removeAll()
-//               Data.shared.oderProduct.removeAll()
                 Data.shared.userProfile = UserInformation()
                 checkLogin()
                 tableView.reloadData()
@@ -116,8 +108,6 @@ class ProfileHomeVC: UIViewController ,UITableViewDataSource,UITableViewDelegate
 }
 extension ProfileHomeVC {
     func initUI() {
-        
-        
         self.setTF()
         self.tbvChoose.reloadData()
         if Data.shared.userProfile.image.count > 0 {

@@ -34,12 +34,9 @@ class ProfileVC: UIViewController {
         tfUsername.isUserInteractionEnabled = false
         setIsUserInterEnab(check: true)
         
-        
-        
         datePickerView.datePickerMode = UIDatePicker.Mode.date
         tfdateofbirth.inputView = datePickerView
         datePickerView.addTarget(self, action: #selector(ProfileVC.datePickerValueChanged), for: .valueChanged)
-        
         
         imgAvata.layer.cornerRadius = 40
         imgAvata.layer.masksToBounds = true
@@ -47,7 +44,6 @@ class ProfileVC: UIViewController {
         imgAvata.layer.borderColor = #colorLiteral(red: 0.9868738055, green: 0.1452238262, blue: 0.2056418657, alpha: 1)
         
         initUI()
-        
     }
     
     @objc func datePickerValueChanged(sender:UIDatePicker) {
@@ -89,7 +85,6 @@ class ProfileVC: UIViewController {
         tfdateofbirth.isUserInteractionEnabled = check
         btnMale.isUserInteractionEnabled = check
         btnFemale.isUserInteractionEnabled = check
-        //tfUsername.isUserInteractionEnabled = check
     }
     
     
@@ -140,10 +135,7 @@ class ProfileVC: UIViewController {
         let address:String = tfAddress.text ?? ""
         let phoneNumber:String = tfPhoneNumber.text ?? ""
         let gender:Bool = checkGender
-        
-        
         let datestr:String   = selectedDate.toString("yyyy-MM-dd")
-        
         let image:String = ""
         let groupUserId:Int = formatGroupUserId()
         

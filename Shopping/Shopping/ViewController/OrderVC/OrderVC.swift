@@ -59,32 +59,6 @@ class OrderVC: UIViewController{
                     Helper.alertOrderSucc(msg: "Order successful!", target: self)
                 }
             }
-//            let token = UserDefaults.standard.value(forKey: SaveKey.access_token.toString()) as? String ?? ""
-//
-//            let headers: HTTPHeaders = ["Authorization": "Bearer \(token)"]
-//            let urlrq:String = "http://52.77.233.77:8081/api/Order"
-//            AF.request(urlrq, method: .post, parameters: parameters,encoding: JSONEncoding.default, headers: headers).responseJSON {
-//                response in
-//                KRProgressHUD.dismiss()
-//                switch response.result {
-//                case .success:
-//                    if let value = response.value {
-//                        if let json = JSON(rawValue: value) {
-//                            let message = json["message"].boolValue
-//                            Data.shared.oderProduct.removeAll()
-//                            self.tbMain.reloadData()
-//                            Helper.alertOrderSucc(msg: "Order successful!", target: self)
-//
-//                        }
-//                    }
-//
-//                    break
-//                case .failure(let error):
-//                    print(response)
-//                    print(error)
-//                }
-//
-//            }
         }else{
             if Data.shared.oderProduct.count == 0 {
                 Helper.alert(msg: "Please add product to this order", target: self)
@@ -96,8 +70,6 @@ class OrderVC: UIViewController{
         }
         
     }
-    
-    
     func confixData() -> Void {
         var arayProduct:[OrderProduct] = []
         var check:Bool = false
@@ -114,6 +86,7 @@ class OrderVC: UIViewController{
             check = false
         }
         Data.shared.oderProduct = arayProduct
+        self.tbMain.reloadData()
     }
     
     func toltalPrice() -> Int {

@@ -37,6 +37,5 @@ class OrderHistory: NSObject {
         dateFor.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSS"
         dateFor.locale = Locale(identifier: "vi")
         self.orderDate = dateFor.date(from: datestr) ?? Date()
-        print(orderDate.toString())
     }
 }

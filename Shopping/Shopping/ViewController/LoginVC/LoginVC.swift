@@ -21,36 +21,28 @@ class LoginVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        AppDel.hidenBag = true
+        Data.shared.reloadBag()
         navigationController?.isNavigationBarHidden = true
     }
-    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        AppDel.hidenBag = false
+        Data.shared.reloadBag()
+    }
     @IBAction func actionBack(_ sender: Any) {
-        
         self.dismiss(animated: true, completion: nil)
-        
-        
     }
     @IBAction func actionLogin(_ sender: Any) {
-//        KRProgressHUD.show()
         let user:String = tfUsername.text!
         let pass:String = tfPass.text!
         APIManager.shared.login(username: user, pass: pass, progress: true) { (user) in
             self.goProfile()
         }
     }
-    
-    
-    
     func goProfile()  {
-        //
-        //                let app = UIApplication.shared.delegate as! AppDelegate
-        //                app.tabVC?.selectedIndex = 2
         self.dismiss(animated: true, completion: nil)
-        
-        
     }
-    
-    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
@@ -66,19 +58,14 @@ extension LoginVC {
             tfUsername.text =  ((Save.get(.lgUserName) as? String)) ?? "admin"
             tfPass.text = ((Save.get(.lgPass) as? String)) ?? "12345678"
         }
-        
     }
-    
     func initData() {
         
     }
-    
     @objc func actionRegister() {
-        
         let vc = RegisterVC(nibName: "RegisterVC", bundle: nil)
         //self.present(vc, animated: true, completion: nil)
         self.navigationController?.pushViewController(vc, animated: true)
-        
     }
 }
 

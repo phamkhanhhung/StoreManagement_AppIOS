@@ -10,7 +10,7 @@ import KRProgressHUD
 class ProductByOrderVC: UIViewController ,UITableViewDelegate,UITableViewDataSource{
     
     
-
+    
     var vitri:Int = 0
     @IBOutlet weak var tbvProductBO: UITableView!
     override func viewDidLoad() {
@@ -27,7 +27,7 @@ class ProductByOrderVC: UIViewController ,UITableViewDelegate,UITableViewDataSou
         initUI()
         initData()
     }
-
+    
     @IBAction func actionBack(_ sender: Any) {
         Data.shared.listProductInOrder.removeAll()
         self.dismiss(animated: true, completion: nil)
@@ -39,8 +39,6 @@ class ProductByOrderVC: UIViewController ,UITableViewDelegate,UITableViewDataSou
     }
     
     @objc func showBranch() {
-        //            let app = UIApplication.shared.delegate as! AppDelegate
-        //            app.tabVC?.selectedIndex = 0
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -62,7 +60,7 @@ class ProductByOrderVC: UIViewController ,UITableViewDelegate,UITableViewDataSou
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
-
+    
 }
 extension ProductByOrderVC{
     func initUI()  {
@@ -70,41 +68,11 @@ extension ProductByOrderVC{
     }
     
     func initData(){
-        KRProgressHUD.show()
-        let token = UserDefaults.standard.value(forKey: SaveKey.access_token.toString()) as? String ?? ""
-        
-        let headers: HTTPHeaders = ["Authorization": "Bearer \(token)"]
-
-        AF.request("http://52.77.233.77:8081/api/OrderDetail?OrderId=" + String(vitri) + "&page=1&pagesize=100", method: .get, parameters: nil,encoding: JSONEncoding.default, headers: headers).responseJSON {
-            response in
-            KRProgressHUD.dismiss()
-            switch response.result {
-            case .success:
-                if let value = response.value {
-                    if let json = JSON(rawValue: value) {
-                                                                        
-                        Data.shared.listProductInOrder = []
-                        for js in json["items"].arrayValue {
-                            let oh = ListProductInOrder.init(json: js)
-                            Data.shared.listProductInOrder.append(oh)
-                            
-                            
-                        }
-                        self.tbvProductBO.reloadData()
-                        
-                    }
-                }
-                
-                break
-            case .failure(let error):
-                
-                print(response)
-                print(error)
+        APIManager.shared.getOrderDetail(OrderId: String(vitri), progress: true) { (status) in
+            if status {
+                self.tbvProductBO.reloadData()
             }
-            
         }
-        
-        
     }
 }
 

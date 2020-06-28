@@ -125,4 +125,41 @@ class APIManager: NSObject {
             }
         }
     }
+    func getOrderByUserId(Id: String, progress: Bool, _ completion: @escaping ((Bool) -> Void)) {
+        APIService.shared.getOrderByUserId(Id: Id, hasProgress: progress) { (result) in
+            switch result {
+            case .success(let json):
+                Data.shared.orderHistory.removeAll()
+                for js in json["items"].arrayValue {
+                    let oh = OrderHistory.init(json: js)
+                    Data.shared.orderHistory.append(oh)
+                }
+                completion(true)
+                break
+            case .failure(let error):
+                completion(false)
+                print(error.localizedDescription)
+                break
+            }
+        }
+    }
+    func getOrderDetail(OrderId: String, progress: Bool, _ completion: @escaping ((Bool) -> Void)) {
+        APIService.shared.getOrderDetail(OrderId: OrderId, hasProgress: progress) { (result) in
+            switch result {
+            case .success(let json):
+                Data.shared.listProductInOrder = []
+                for js in json["items"].arrayValue {
+                    let oh = ListProductInOrder.init(json: js)
+                    Data.shared.listProductInOrder.append(oh)
+                }
+                completion(true)
+                break
+            case .failure(let error):
+                completion(false)
+                print(error.localizedDescription)
+                break
+            }
+        }
+    }
+
 }

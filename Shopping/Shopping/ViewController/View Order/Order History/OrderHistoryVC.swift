@@ -74,41 +74,15 @@ extension OrderHistoryVC{
     }
     
     func loadData()  {
-        KRProgressHUD.show()
         let idstr = UserDefaults.standard.value(forKey: SaveKey.idlogin.toString()) as? Int ?? 0
         if idstr != 0 {
-            let token = UserDefaults.standard.value(forKey: SaveKey.access_token.toString()) as? String ?? ""
-            
-            let headers: HTTPHeaders = ["Authorization": "Bearer \(token)"]
-            
-            AF.request("http://52.77.233.77:8081/api/Order/GetAllOrder?customerId=" + String(idstr) + "&page=1&pagesize=100", method: .get, parameters: nil,encoding: JSONEncoding.default, headers: headers).responseJSON {
-                response in
-                KRProgressHUD.dismiss()
-                switch response.result {
-                case .success:
-                    if let value = response.value {
-                        if let json = JSON(rawValue: value) {
-                            
-                            Data.shared.orderHistory.removeAll()
-                            for js in json["items"].arrayValue {
-                                let oh = OrderHistory.init(json: js)
-                                Data.shared.orderHistory.append(oh)
-                            }
-                            self.tbvListOrder.reloadData()
-                            
-                        }
-                    }
-                    
-                    break
-                case .failure(let error):
-                    
-                    print(response)
-                    print(error)
+            APIManager.shared.getOrderByUserId(Id: String(idstr), progress: true) { (status) in
+                if status {
+                    self.tbvListOrder.reloadData()
                 }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                    self.refreshControl.endRefreshing()
-                }
-                
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                self.refreshControl.endRefreshing()
             }
         }
         
