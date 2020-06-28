@@ -32,7 +32,7 @@
                     <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jMY-hk-SM2">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="1000"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="800"/>
                             <subviews>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noimage" translatesAutoresizingMaskIntoConstraints="NO" id="yeW-g4-mpd">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="358.5"/>
@@ -240,7 +240,7 @@
                             <color key="backgroundColor" name="color1"/>
                             <constraints>
                                 <constraint firstItem="yeW-g4-mpd" firstAttribute="leading" secondItem="jMY-hk-SM2" secondAttribute="leading" id="9Xc-6p-zgp"/>
-                                <constraint firstAttribute="height" constant="1000" id="EQ7-qS-iKv"/>
+                                <constraint firstAttribute="height" constant="800" id="EQ7-qS-iKv"/>
                                 <constraint firstAttribute="trailing" secondItem="yeW-g4-mpd" secondAttribute="trailing" id="JuZ-PW-39G"/>
                                 <constraint firstAttribute="trailing" secondItem="t7d-iS-R6R" secondAttribute="trailing" id="Nc2-be-3pq"/>
                                 <constraint firstItem="bb9-pB-UFT" firstAttribute="leading" secondItem="jMY-hk-SM2" secondAttribute="leading" id="PFI-O8-z56"/>

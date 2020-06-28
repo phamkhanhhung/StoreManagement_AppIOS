@@ -22,6 +22,10 @@ class OrderHistoryVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        if Data.shared.orderHistory.count == 0 {
+            loadData()
+        }
+        tbvListOrder.reloadData()
     }
     
     @IBAction func actionBack(_ sender: Any) {

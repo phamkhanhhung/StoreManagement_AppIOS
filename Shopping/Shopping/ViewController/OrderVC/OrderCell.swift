@@ -22,7 +22,7 @@ class OrderCell: UITableViewCell {
     var item: OrderProduct = OrderProduct() {
         didSet {
             lbSoLuong.text = "\(item.SoLuong)"
-            lbNameP.text = "\(item.product.categoryName)" + " " + "\(item.product.name)"
+            lbNameP.text = "\(item.product.name)"
             lbPrice.text = "\(item.product.price.currency()) đ"
             if item.SoLuong <= 1 {
                 btTruSL.isUserInteractionEnabled = false

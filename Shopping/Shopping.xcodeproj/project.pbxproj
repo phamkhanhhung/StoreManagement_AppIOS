@@ -168,7 +168,6 @@
 				85176151247A1DE10024AE1C /* UIViewExtention.swift */,
 				1863FDDA24A5D4E60042CB23 /* URLRequestExtention.swift */,
 				18213CB324A1F4B700C83510 /* ColorExtention.swift */,
-				1863FDE224A5D82C0042CB23 /* WebServices.swift */,
 				852C5C7424A7AA01004E5645 /* NibExtention.swift */,
 				852C5C7624A7AA38004E5645 /* UIImageViewExtention.swift */,
 			);
@@ -255,6 +254,7 @@
 			children = (
 				1863FDD624A5D3FF0042CB23 /* NetworkServices.swift */,
 				1863FDD824A5D4B60042CB23 /* APIRouter.swift */,
+				1863FDE224A5D82C0042CB23 /* WebServices.swift */,
 				1863FDE424A5D8790042CB23 /* APIService.swift */,
 				1863FDE524A5D87A0042CB23 /* APIManager.swift */,
 			);
